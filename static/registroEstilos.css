@@ -1,0 +1,110 @@
+:root{
+    --blanco: #ffffff;
+}
+html{
+    font-size: 62.5%;
+    box-sizing: border-box;
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+*, *:before, *:after{
+    box-sizing: inherit;
+} 
+
+body{
+    font-size: 16px;
+}
+
+#header{
+    background-color: var(--blanco);
+    box-shadow: 0px 1px 7px 0px rgba(0,0,0,0.1);
+}
+
+.contenedorLogo{
+    padding-top: 1.1rem;
+    padding-bottom: 1.1rem;
+    margin-left: 15rem;
+}
+
+.logo{
+    width: 20rem; /* 1rem = 10px*/
+    height: 5rem;
+}
+
+.contenedor{
+    max-width: 60rem;
+    margin: 0 auto;
+    border: 0.01rem solid gainsboro;
+    margin-top: 10rem;
+    border-radius: 2rem;
+}
+
+#frmDatos{
+    padding: 3rem;
+}
+
+#frmDatos legend{
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #484848;
+    margin: 0 auto;
+}
+
+#frmDatos h3{
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+    font-size: 2rem;
+    color: #484848;
+}
+
+.campos{
+    display: flex;
+    flex-direction: column;
+    margin-top: 2rem;
+    border-top: 0.1rem solid gainsboro;
+}
+
+.campos select{
+    border-style: solid solid solid solid;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+    border-width: 0.1rem;
+    height: 4rem;
+    border-color: gainsboro;
+    padding-left: 2rem;
+    color: #757575;
+}
+
+.campos input{
+    border-style: none solid solid solid;
+    border-width: 0.1rem;
+    height: 5rem;
+    border-color: gainsboro;
+    padding-left: 2rem;
+}
+
+.campos input:nth-child(5){
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+}
+
+.campos input:last-child{
+    margin-top: 2rem;
+    border-style: none;
+    border-radius: 1rem;
+    background-color: #E5242B;
+    color: white;
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+
+.registro{
+    margin: auto;
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+}
+

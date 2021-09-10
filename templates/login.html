@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="preload" href="{{normalizacioncss}}" as="style">
+    <link rel="stylesheet" href="{{normalizacioncss}}">
+    <link rel="preload" href="{{css}}" as="style">
+    <link rel="stylesheet" href="{{css}}">
+</head>
+<body>
+    <header id="header">
+        <div class="contenedorLogo">
+            <img class="logo" src="{{logo}}" alt="logo">
+        </div>
+    </header>
+    <main id="main">
+        <div class="contenedor sombra">
+            <form id="frmDatos" action="#"> 
+                <legend>Inicio Sesión</legend>
+                <div class="campos">
+                    <h3>Te damos la bienvenida a Conectados</h3>
+                    <input type="email" placeholder="Correo electrónico" id="correo">
+                    <input type="password" placeholder="Contraseña" id="contraseña">
+                    <div class="registro">
+                        <p>¿Todavía no estás en Conectados? <a href="/registro">Registrarse</a></p> 
+                    </div>
+                    <input type="submit" value="Continúa" id="enviar">
+                </div>
+            </form>
+        </div>
+        
+    </main>
+    <footer id="footer">
+        
+    </footer>
+</body>
+</html>

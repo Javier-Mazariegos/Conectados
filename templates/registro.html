@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+    <link rel="preload" href="{{normalizacioncss}}" as="style">
+    <link rel="stylesheet" href="{{normalizacioncss}}">
+    <link rel="preload" href="{{css}}" as="style">
+    <link rel="stylesheet" href="{{css}}">
+</head>
+<body>
+    <header id="header">
+        <div class="contenedorLogo">
+            <img class="logo" src="{{logo}}" alt="logo">
+        </div>
+    </header>
+    <main id="main">
+        <div class="contenedor sombra">
+            <form id="frmDatos" action="#"> 
+                <legend>Registrarse</legend>
+                <div class="campos">
+                    <h3>Te damos la bienvenida a Conectados</h3>
+                    <select name="paises" id="paises">
+                        <option value="Afganistán">Afganistán (+93)</option>
+                        <option value="Albania">Albania (+355)</option>
+                        <option value="Alemania">Alemania (+49)</option>
+                        <option value="Andorra">Andorra (+376)</option>
+                        <option value="Angola">Angola (+244)</option>
+                        <option value="Bielorrusia">Bielorrusia (+375)</option>
+                        <option value="Bolivia">Bolivia (+591)</option>
+                        <option value="Georgia">Georgia (+995)</option>
+                        <option value="Ghana">Ghana (+233)</option>
+                        <option value="Gibraltar">Gibraltar (+350)</option>
+                        <option value="Granada">Granada (+1)</option>
+                        <option value="Grecia">Grecia (+30)</option>
+                        <option value="Groenlandia">Groenlandia (+299)</option>
+                        <option value="Guadalupe">Guadalupe (+590)</option>
+                        <option value="Guam">Guam (+1)</option>
+                        <option selected="" value="Guatemala">Guatemala (+502)</option>
+                        <option value="GuayanaFrancesa">Guayana Francesa  (+594)</option>
+                        <option value="Guernesey">Guernesey (+44)</option>
+                    </select>
+                    <input type="text" placeholder="Nombre de usuario" id="nombre">
+                    <input type="email" placeholder="Correo electrónico" id="correo">
+                    <input type="password" placeholder="Contraseña" id="contraseña">
+                    <div class="registro">
+                        <p>¿Ya estás en Conectados? <a href="/inicioSesion">Iniciar Sesión</a></p> 
+                    </div>
+                    <input type="submit" value="Continúa" id="enviar">
+                </div>
+            </form>
+        </div>
+    </main>
+    <footer id="footer">
+      
+    </footer>
+</body>
+</html>
