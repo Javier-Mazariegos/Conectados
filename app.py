@@ -6,6 +6,11 @@ File_loader = FileSystemLoader("templates")
 env = Environment(loader=File_loader)
 app = Flask(__name__)
 
+@app.route('/',methods=["GET","POST"], endpoint="index")
+def index():
+    template = env.get_template('index.html')
+    return template.render()
+
 @app.route('/registro',methods=["GET","POST"], endpoint="registro")
 def regristro():
     css = url_for('static',filename="registroEstilos.css")
@@ -21,6 +26,8 @@ def inicioSesion():
     logo = url_for('static',filename="conectados.png")
     template = env.get_template('login.html')
     return template.render(css=css,normalizacioncss=normalizacioncss,logo=logo)
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
