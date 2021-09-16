@@ -25,7 +25,7 @@ def regristro():
     logo = url_for('static',filename="conectados.png")
     template = env.get_template('registro.html')
     scriptregistro = url_for('static',filename="scripts.js")
-    return template.render(css=css,normalizacioncss=normalizacioncss,logo=logo,scriptregistro=scriptregistro,avatar=avatar)
+    return template.render(css=css,normalizacioncss=normalizacioncss,logo=logo,scriptregistro=scriptregistro)
 
 @app.route('/inicioSesion',methods=["GET","POST"], endpoint="inicioSesion")
 def inicioSesion():
