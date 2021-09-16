@@ -9,7 +9,14 @@ app = Flask(__name__)
 @app.route('/',methods=["GET","POST"], endpoint="index")
 def index():
     template = env.get_template('index.html')
-    return template.render()
+    icono = url_for('static',filename="hamburgesa.png")
+    logoConectados = url_for('static',filename="conectados2.png")
+    css = url_for('static',filename="styles.css")
+    img1 = url_for('static',filename="hacer1.jpg")
+    img2 = url_for('static',filename="hacer2.jpg")
+    img3 = url_for('static',filename="hacer3.jpg")
+    img4 = url_for('static',filename="hacer4.jpg")
+    return template.render(css = css,logoConectados=logoConectados,img1=img1, img2=img2, img3=img3, img4=img4,icono=icono)
 
 @app.route('/registro',methods=["GET","POST"], endpoint="registro")
 def regristro():
