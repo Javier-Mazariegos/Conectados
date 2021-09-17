@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+    <link rel="preload" href="{{normalizacioncss}}" as="style">
+    <link rel="stylesheet" href="{{normalizacioncss}}">
+    <link rel="preload" href="{{css}}" as="style">
+    <link rel="stylesheet" href="{{css}}">
+</head>
+<body>
+
+    <header >
+        <div class="header contenedor">
+            <div class="logo">
+                <img src="{{logo}}">
+            </div>
+            <nav class="navegacion">
+                <a href="#">Javier</a>    
+                 <ul>
+                     <li><a href="#">Cuenta</a></li>
+                     <li><a href="#">Mis eventos</a></li>
+                 </ul>
+            </nav>
+        </div>
+    </header>
+    <main id="main">
+        <div class="cont sombra">
+            <form class="formulario">
+                <div class="principal">
+                    <h2>Agregar Actividad</h2>
+                    <div class="formulario-grupo fila1">
+                        <label for="nombre">Nombre de la actividad</label>
+                        <input id="nombre" class="nombre" type="text" required>
+                    </div>
+                    <div class="formulario-grupo fila2">
+                        <label for="descripcion">Descripcion de la actividad</label>
+                        <textarea class="descripcion" rows="3" required="" id="descripcion"></textarea>
+                    </div>
+                    <div class="formulario-grupo fila3">
+                        <label for="categoria">Categoria de la actividad</label>
+                        <select class="categoria" id="categoria">
+                            <option selected="">Select category</option>
+                            <option value="1">Categoria 1</option>
+                            <option value="2">Categoria 2</option>
+                            <option value="3">Categoria 3</option>
+                        </select>
+                    </div>
+                    <div class="formulario-row fila4">
+                        <div class="formulario-grupo row1">
+                            <label for="fecha">Fecha de la actividad</label>
+                            <input id="fecha" class="fecha" type="datetime-local" required>
+                        </div>
+                        <div class="formulario-grupo row2">
+                            <label for="precio">Precio</label>
+                            <input id="precio" class="precio" type="text" required>
+                        </div>
+                    </div>
+                    <div class="contenedor-imagenes">
+                        <div class="profile-pic-div1">
+                            <img id="photo1">
+                            <input type="file" id="file1">
+                            <label for="file1" id="uploadbtn1">Elegir foto</label>
+                        </div>
+                        <div class="profile-pic-div2">
+                            <img id="photo2">
+                            <input type="file" id="file2">
+                            <label for="file2" id="uploadbtn2">Elegir foto</label>
+                        </div>
+                        <div class="profile-pic-div3">
+                            <img id="photo3">
+                            <input type="file" id="file3">
+                            <label for="file3" id="uploadbtn3">Elegir foto</label>
+                        </div>
+                        <div class="profile-pic-div4">
+                            <img id="photo4">
+                            <input type="file" id="file4">
+                            <label for="file4" id="uploadbtn4">Elegir foto</label>
+                        </div>
+                    </div>
+                    <input type="submit" value="enviar" id="enviar">
+                 </div>
+            </form>
+        </div>
+    </main>
+</footer>
+<script src="{{scriptNuevaActividad}}"></script>
+</body>
+</html>

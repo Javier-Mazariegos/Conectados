@@ -1,0 +1,294 @@
+:root{
+    --primario: #da595e;
+    --obscuro: #484848;
+    --claro: #ffffff;
+}
+
+*, *:before, *:after{
+    box-sizing: inherit;
+} 
+
+
+body{
+    margin: 0;
+    font-size: 16px;
+    background-color: #F7F7F7;
+}
+
+html{
+    font-size: 62.5%;
+    box-sizing: border-box;
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+h1{
+    font-size: 2.6rem;
+    font-weight: 400;
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+}
+
+h2{
+    font-size: 2rem;
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+}
+
+h3{
+    font-size: 1.8rem;
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+}
+
+header{
+    box-shadow: 0px 1px 7px 0px rgba(0,0,0,0.1);
+    background-color:#ffffff;
+}
+
+.contenedor{
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-self: start;
+    width: 100%;
+    align-items: center;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+
+.navegacion a{
+    text-decoration: none;
+}
+
+.navegacion > a:hover{
+    cursor: pointer;
+    -webkit-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.5);
+    -moz-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.5);
+    box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.5);
+}
+
+.navegacion ul{
+    transform: translateX(-65%);
+    margin-top: 1.5rem;
+    background-color: var(--claro);
+    width: 200px;
+    text-align: center;
+    position: absolute;
+    list-style-type: none;
+    padding: 0;
+    -webkit-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.5);
+    -moz-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.5);
+    box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.5);
+    border-radius: 0.2rem;
+    display: none;
+}
+
+.navegacion a:focus + ul{
+    display: block;
+}
+
+.navegacion ul li{
+    padding: 0.5rem;
+}
+
+.navegacion ul li:hover{
+    background-color: #F7F7F7;
+}
+
+.navegacion ul li a{
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+    color: var(--obscuro) ;
+}
+
+.navegacion > a{
+    padding: 1rem;
+    border-radius: 2rem;
+    background-color: var(--claro);
+    color: var(--obscuro);
+    text-decoration: none;
+    margin-right: 1rem;
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+}
+
+.navegacion a:last-of-type{
+    margin-right: 0;
+}
+
+
+/**-------------------------------------------- Editar para productos nuevos ------------------------------------**/
+
+
+.cont{
+    max-width: 90rem;
+    margin: 0 auto;
+    border: 0.01rem solid gainsboro;
+    margin-top: 5rem;   
+    background-color: #ffffff; 
+}
+
+.principal{
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(6, 10rem);
+}
+
+
+
+
+.contenedor-imagenes{
+    grid-column: 2/3;
+    grid-row: 2/6;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+}
+
+h2{
+    grid-column: 1/3;
+    grid-row: 1/2;
+    margin-left: 2rem;
+    align-self: center;
+    justify-self: center;
+}
+
+.fila1{
+    grid-column: 1/2;
+    grid-row: 2/3;
+}
+
+.fila2{
+    grid-column: 1/2;
+    grid-row: 3/4;
+}
+
+.fila3{
+    grid-column: 1/2;
+    grid-row: 4/5;
+}
+.fila4{
+    grid-column: 1/2;
+    grid-row: 5/6;
+}
+
+.formulario input[type="submit"]{
+    grid-column: 1/3;
+    grid-row: 6/7;
+    background-color: #E5242B;
+    border: none;
+    color: #ffffff;
+    width: 95%;
+    height: 60%;
+    align-self: center;
+    justify-self: center;
+}
+
+.formulario-grupo input, .formulario-grupo textarea, .formulario-grupo select{
+    margin-left: 2rem;
+    width: 80%;
+    padding: 1rem;
+    font-size: 1.5rem;
+    font-weight: 200;
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+}
+
+.formulario-grupo
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.formulario-row{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 80%;
+}
+
+.row1{
+    grid-column: 1/2;
+}
+
+.row2{
+    grid-column: 2/3;
+}
+
+.row1 input{
+    width: 80%;
+}
+
+.row2 input{
+    width: 100%;
+}
+
+
+.formulario-grupo label
+{
+    display: block;
+    margin-left: 2rem;
+    width: 80%;
+}
+
+.profile-pic-div1,.profile-pic-div2,.profile-pic-div3,.profile-pic-div4{
+    height: 90%;
+    width: 90%;
+    position: relative;
+    overflow: hidden;
+    margin: 0 auto;
+    margin-bottom: 2rem;
+    margin-right: 2rem;
+}
+
+#photo{
+    height: 100%;
+    width: 100%;
+}
+
+
+.profile-pic-div1 label,.profile-pic-div2 label,.profile-pic-div3 label,.profile-pic-div4 label{
+    margin-top: 2rem;
+}
+
+#uploadbtn1,#uploadbtn2,#uploadbtn3,#uploadbtn4{
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    text-align: center;
+    background: rgba(170, 170, 170, 0.7);
+    color: var(--blanco);
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+    font-size: 15px;
+    cursor: pointer;
+    border: none;
+    
+}
+
+#photo1{
+    height: 100%;
+    width: 100%;
+}
+#photo2{
+    height: 100%;
+    width: 100%;
+}
+#photo3{
+    height: 100%;
+    width: 100%;
+}
+#photo4{
+    height: 100%;
+    width: 100%;
+}
+

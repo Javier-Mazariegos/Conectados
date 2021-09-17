@@ -35,6 +35,15 @@ def inicioSesion():
     template = env.get_template('login.html')
     return template.render(css=css,normalizacioncss=normalizacioncss,logo=logo)
 
+@app.route('/nueva_actividad',methods=["GET","POST"], endpoint="nueva_actividad")
+def nueva_actividad():
+    css = url_for('static',filename="nueva_actividad_estilos.css")
+    normalizacioncss = url_for('static',filename="normalize.css")
+    logo = url_for('static',filename="conectados.png")
+    template = env.get_template('nueva_actividad.html')
+    scriptNuevaActividad = url_for('static',filename="nueva_actividad_scripts.js")
+    return template.render(css=css,normalizacioncss=normalizacioncss,logo=logo,scriptNuevaActividad=scriptNuevaActividad)
+
 
 
 if __name__ == '__main__':
