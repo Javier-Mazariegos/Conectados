@@ -18,12 +18,13 @@
     </header>
     <main id="main">
         <div class="contenedor sombra">
-            <form id="frmDatos" action="#"> 
+            <form id="frmDatos" action="" method = "POST"> 
                 <legend>Inicio Sesión</legend>
                 <div class="campos">
                     <h3>Te damos la bienvenida a Conectados</h3>
-                    <input type="email" placeholder="Correo electrónico" id="correo">
-                    <input type="password" placeholder="Contraseña" id="contraseña">
+                    <h4>{{mensaje}}</h4>
+                    <input type="email" placeholder="Correo electrónico" name = "correo" id="correo">
+                    <input type="password" placeholder="Contraseña" name = "clave" id="contraseña">
                     <div class="registro">
                         <p>¿Todavía no estás en Conectados? <a href="/registro">Registrarse</a></p> 
                     </div>

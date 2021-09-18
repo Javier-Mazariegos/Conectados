@@ -1,5 +1,5 @@
 from flask.helpers import _endpoint_from_view_func, url_for
-from flask import Flask, request
+from flask import Flask, request, redirect
 from jinja2 import Template, Environment, FileSystemLoader
 
 File_loader = FileSystemLoader("templates")
@@ -20,12 +20,24 @@ def index():
 
 @app.route('/registro',methods=["GET","POST"], endpoint="registro")
 def regristro():
+    #Dentro de request 'GET'
     css = url_for('static',filename="registroEstilos.css")
     normalizacioncss = url_for('static',filename="normalize.css")
     logo = url_for('static',filename="conectados.png")
     template = env.get_template('registro.html')
     scriptregistro = url_for('static',filename="scripts.js")
-    return template.render(css=css,normalizacioncss=normalizacioncss,logo=logo,scriptregistro=scriptregistro)
+    #Dentro de request 'POST'
+    if(request.method == 'POST'):
+        #Extracción de los datos del form
+        #foto = request.form.files.get["file"]
+        #pais = request.form.get["paises"]
+        nombre = request.form["nombre"]
+        email = request.form["correo"]
+        clave = request.form["clave"]
+        if nombre == "" or email == "" or clave == "":
+            return template.render(css=css,normalizacioncss=normalizacioncss,logo=logo,scriptregistro=scriptregistro,mensaje="¡Debes llenar todos los campos!")
+        return redirect("/inicioSesion")
+    return template.render(css=css,normalizacioncss=normalizacioncss,logo=logo,scriptregistro=scriptregistro,mensaje="")
 
 @app.route('/inicioSesion',methods=["GET","POST"], endpoint="inicioSesion")
 def inicioSesion():
@@ -33,7 +45,14 @@ def inicioSesion():
     normalizacioncss = url_for('static',filename="normalize.css")
     logo = url_for('static',filename="conectados.png")
     template = env.get_template('login.html')
-    return template.render(css=css,normalizacioncss=normalizacioncss,logo=logo)
+    #Método POST
+    if request.method == 'POST':
+        email = request.form["correo"]
+        clave = request.form["clave"]
+        if email == "" or clave == "":
+            return template.render(css=css,normalizacioncss=normalizacioncss,logo=logo,mensaje="¡Debes llenar todos los campos!")
+        return redirect("/")
+    return template.render(css=css,normalizacioncss=normalizacioncss,logo=logo,mensaje="")
 
 @app.route('/nueva_actividad',methods=["GET","POST"], endpoint="nueva_actividad")
 def nueva_actividad():
@@ -42,6 +61,17 @@ def nueva_actividad():
     logo = url_for('static',filename="conectados.png")
     template = env.get_template('nueva_actividad.html')
     scriptNuevaActividad = url_for('static',filename="nueva_actividad_scripts.js")
+    if request.method == "POST":
+        nombre = request.form["nombre"]
+        descripcion = request.form["descripcion"]
+        #categoria = request.form["categoria"]
+        #fecha = request.form["fecha"]
+        precio = request.form["precio"]
+        #foto1 = request.form["file1"]
+        #foto2 = request.form["file2"]
+        #foto3 = request.form["file3"]
+        #foto4 = request.form["file4"]
+        return redirect("/")
     return template.render(css=css,normalizacioncss=normalizacioncss,logo=logo,scriptNuevaActividad=scriptNuevaActividad)
 
 

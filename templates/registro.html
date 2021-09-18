@@ -19,14 +19,15 @@
     </header>
     <main id="main">
         <div class="contenedor sombra">
-            <form id="frmDatos" action="#"> 
+            <form method="POST" id="frmDatos" action=""> 
                 <legend>Registrarse</legend>
                 <div class="campos">
                     <h3>Te damos la bienvenida a Conectados</h3>
+                    <h4>{{mensaje}}</h4>
                     <!-- Foto de perfil -->
                     <div class="profile-pic-div">
                         <img id="photo">
-                        <input type="file" id="file">
+                        <input type="file" name="file" id="file">
                         <label for="file" id="uploadbtn">Elegir foto</label>
                     </div>
                     <!-- Fin foto de perfil -->
@@ -50,9 +51,9 @@
                             <option value="GuayanaFrancesa">Guayana Francesa  (+594)</option>
                             <option value="Guernesey">Guernesey (+44)</option>
                         </select>
-                        <input type="text" placeholder="Nombre de usuario" id="nombre">
-                        <input type="email" placeholder="Correo electrónico" id="correo">
-                        <input type="password" placeholder="Contraseña" id="contraseña">
+                        <input type="text" placeholder="Nombre de usuario" name="nombre" id="nombre">
+                        <input type="email" placeholder="Correo electrónico" name="correo" id="correo">
+                        <input type="password" placeholder="Contraseña" name = "clave" id="contraseña">
                         <div class="registro">
                             <p>¿Ya estás en Conectados? <a href="/inicioSesion">Iniciar Sesión</a></p> 
                         </div>

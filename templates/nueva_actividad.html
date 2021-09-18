@@ -28,20 +28,21 @@
     </header>
     <main id="main">
         <div class="cont sombra">
-            <form class="formulario">
+            <form class="formulario" method="POST" action="">
                 <div class="principal">
                     <h2>Agregar Actividad</h2>
+                    <h4>{{mensaje}}</h4>
                     <div class="formulario-grupo fila1">
                         <label for="nombre">Nombre de la actividad</label>
-                        <input id="nombre" class="nombre" type="text" required>
+                        <input id="nombre" name="nombre" class="nombre" type="text" required>
                     </div>
                     <div class="formulario-grupo fila2">
                         <label for="descripcion">Descripcion de la actividad</label>
-                        <textarea class="descripcion" rows="3" required="" id="descripcion"></textarea>
+                        <textarea class="descripcion" name = "descripcion" rows="3" required="" id="descripcion"></textarea>
                     </div>
                     <div class="formulario-grupo fila3">
                         <label for="categoria">Categoria de la actividad</label>
-                        <select class="categoria" id="categoria">
+                        <select class="categoria" name="categoria" id="categoria">
                             <option selected="">Select category</option>
                             <option value="1">Categoria 1</option>
                             <option value="2">Categoria 2</option>
@@ -51,36 +52,36 @@
                     <div class="formulario-row fila4">
                         <div class="formulario-grupo row1">
                             <label for="fecha">Fecha de la actividad</label>
-                            <input id="fecha" class="fecha" type="datetime-local" required>
+                            <input id="fecha" name="fecha" class="fecha" type="datetime-local" required>
                         </div>
                         <div class="formulario-grupo row2">
                             <label for="precio">Precio</label>
-                            <input id="precio" class="precio" type="text" required>
+                            <input id="precio" name = "precio" class="precio" type="text" required>
                         </div>
                     </div>
                     <div class="contenedor-imagenes">
                         <div class="profile-pic-div1">
                             <img id="photo1">
                             <input type="file" id="file1">
-                            <label for="file1" id="uploadbtn1">Elegir foto</label>
+                            <label for="file1" name ="file1" id="uploadbtn1">Elegir foto</label>
                         </div>
                         <div class="profile-pic-div2">
                             <img id="photo2">
                             <input type="file" id="file2">
-                            <label for="file2" id="uploadbtn2">Elegir foto</label>
+                            <label for="file2" name ="file2" id="uploadbtn2">Elegir foto</label>
                         </div>
                         <div class="profile-pic-div3">
                             <img id="photo3">
                             <input type="file" id="file3">
-                            <label for="file3" id="uploadbtn3">Elegir foto</label>
+                            <label for="file3" name ="file3" id="uploadbtn3">Elegir foto</label>
                         </div>
                         <div class="profile-pic-div4">
                             <img id="photo4">
                             <input type="file" id="file4">
-                            <label for="file4" id="uploadbtn4">Elegir foto</label>
+                            <label for="file4" name ="file4" id="uploadbtn4">Elegir foto</label>
                         </div>
                     </div>
-                    <input type="submit" value="enviar" id="enviar">
+                    <input type="submit" value="Enviar" id="enviar">
                  </div>
             </form>
         </div>
