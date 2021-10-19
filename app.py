@@ -74,6 +74,13 @@ def nueva_actividad():
         return redirect("/")
     return template.render(css=css,normalizacioncss=normalizacioncss,logo=logo,scriptNuevaActividad=scriptNuevaActividad)
 
+@app.route('/cuenta',methods=["GET","POST"], endpoint="cuenta")
+def cuenta():
+    css = url_for('static',filename="cuenta.css")
+    template = env.get_template('cuenta.html')
+    logo = url_for('static',filename="conectados.png")
+    return template.render(css = css, logo = logo)
+
 
 
 if __name__ == '__main__':

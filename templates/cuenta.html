@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Cuenta</title>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet">
+<link rel="stylesheet" href="{{css}}">
+</head>
+
+<body class="bg-light">
+    <header >
+        <div class="header contenedor">
+            <div class="logo">
+                <img src="{{logo}}">
+            </div>
+            <nav class="navegacion">
+                <a href="#">Javier</a>    
+                 <ul>
+                     <li><a href="#">Cuenta</a></li>
+                     <li><a href="#">Mis eventos</a></li>
+                 </ul>
+            </nav>
+        </div>
+    </header>
+	<div class="container">
+     	<div class="row d-flex justify-content-center">
+            <div class="col-md-10 mt-5 pt-5">
+             	<div class="row z-depth-3">
+                 	<div class="col-sm-4 bg-info rounded-left">
+        		        <div class="card-block text-center text-white">
+                		    <i class="fas fa-user-tie fa-7x mt-5"></i>
+                    		<h3 class="font-weight-bold mt-4">Nombre del usuario</h3>
+                		</div>
+            		</div>
+            		<div class="col-sm-8 bg-white rounded-right">
+                    	<h3 class="mt-3 text-center">Información</h3>
+                    	<hr class="bg-primary mt-0 w-25">
+                   		<div class="row">
+                        	<div class="col-sm-6">
+                            	<p class="font-weight-bold">Correo:</p>
+                           		<h6 class=" text-muted">ejemplo@gmail.com</h6>
+                        	</div>
+                        	<div class="col-sm-6">
+                            	<p class="font-weight-bold">Nombre de usuario:</p>
+                           		<h6 class="text-muted">Javier</h6>
+                        	</div>
+                        	<div class="col-sm-6">
+                           		<p class="font-weight-bold">Region</p>
+                          	  	<h6 class="text-muted">Guatemala</h6>
+                        	</div>
+                    	</div>
+                	   	<hr class="bg-primary">
+						   <form action="#"> <!--Cambiar el action para eliminar la cuenta-->
+							<input class="btn btn-danger btn-lg " type="submit" value="Eliminar cuenta">
+						   </form>
+						   <div class="col-sm-6">
+							<p></p>
+						</div>
+              		</div>
+             	</div>
+            </div>
+        </div>
+	</div>
+</body>
+</html>
