@@ -81,6 +81,17 @@ def cuenta():
     logo = url_for('static',filename="conectados.png")
     return template.render(css = css, logo = logo)
 
+@app.route('/mis_actividades',methods=["GET","POST"], endpoint="mis_actividades")
+def mis_actividades():
+    template = env.get_template('mis_actividades.html')
+    logoConectados = url_for('static',filename="conectados.png")
+    css = url_for('static',filename="mis_actividades.css")
+    img1 = url_for('static',filename="hacer1.jpg")
+    img2 = url_for('static',filename="hacer2.jpg")
+    img3 = url_for('static',filename="hacer3.jpg")
+    img4 = url_for('static',filename="hacer4.jpg")
+    return template.render(css = css,logoConectados=logoConectados,img1=img1, img2=img2, img3=img3, img4=img4)
+
 
 
 if __name__ == '__main__':
