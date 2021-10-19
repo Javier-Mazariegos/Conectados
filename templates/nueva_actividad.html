@@ -5,27 +5,29 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
     <link rel="preload" href="{{normalizacioncss}}" as="style">
     <link rel="stylesheet" href="{{normalizacioncss}}">
     <link rel="preload" href="{{css}}" as="style">
     <link rel="stylesheet" href="{{css}}">
 </head>
 <body>
+    <!--Navegacion-->
+    <nav>
+        <input type="checkbox" id= "check">
+        <label for="check" class="checkbtn">
+            <li class="fas fa-bars"></li>
+        </label>
 
-    <header >
-        <div class="header contenedor">
-            <div class="logo">
-                <img src="{{logo}}">
-            </div>
-            <nav class="navegacion">
-                <a href="#">Javier</a>    
-                 <ul>
-                     <li><a href="#">Cuenta</a></li>
-                     <li><a href="#">Mis eventos</a></li>
-                 </ul>
-            </nav>
-        </div>
-    </header>
+        <img src="{{logo}}" class="logo">
+        <ul>
+            <li><a href="/">Inicio</a></li>
+            <li><a href="mis_actividades">Mis actividades</a></li>
+            <li><a href="nueva_actividad">Nueva actividad</a></li>
+            <li><a href="cuenta">Cuenta</a></li>
+        </ul>
+    </nav>
+     <!--Navegacion-->
     <main id="main">
         <div class="cont sombra">
             <form class="formulario" method="POST" action="">

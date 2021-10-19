@@ -5,22 +5,24 @@
     <meta http-equiv =»Cache-Control» content =»no-cache»/>
     <title>Conectados</title>
     <link rel="stylesheet" href="{{css}}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+
 </head>
 <body>
-    <header>
-        <div class="header contenedor">
-            <div class="logo">
-                <img src="{{logoConectados}}">
-            </div>
-            <nav class="navegacion">
-                <a href="#">Javier</a>    
-                 <ul>
-                     <li><a href="#">Cuenta</a></li>
-                     <li><a href="#">Mis eventos</a></li>
-                 </ul>
-            </nav>
-        </div>
-    </header>
+    <nav>
+        <input type="checkbox" id= "check">
+        <label for="check" class="checkbtn">
+            <li class="fas fa-bars"></li>
+        </label>
+
+        <img src="{{logo}}" class="logo">
+        <ul>
+            <li><a href="/">Inicio</a></li>
+            <li><a href="mis_actividades">Mis actividades</a></li>
+            <li><a href="nueva_actividad">Nueva actividad</a></li>
+            <li><a href="cuenta">Cuenta</a></li>
+        </ul>
+    </nav>
 
     <main class="contenido contenedor">
         <section class="hacer">
