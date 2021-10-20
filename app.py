@@ -107,7 +107,7 @@ def nueva_actividad():
         file = request.files['file1']
         if file.filename == '':
             print("No se seleccionó ningun archivo 2")
-            return template.render(css=css,normalizacioncss=normalizacioncss,logo=logo,scriptNuevaActividad=scriptNuevaActividad,mensaje="Debe ingresar una foto de portada para el evento")
+            return template.render(css=css,normalizacioncss=normalizacioncss,logo=logo,scriptNuevaActividad=scriptNuevaActividad)
         if file and allowed_file(file.filename):
             print("Archivo seleccionado")
             filename = nombre + "_fotoPortada_" + secure_filename(file.filename)

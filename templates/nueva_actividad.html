@@ -33,7 +33,6 @@
             <form class="formulario" method="POST" action="" enctype=multipart/form-data>
                 <div class="principal">
                     <h2>Agregar Actividad</h2>
-                    <h4>{{mensaje}}</h4>
                     <div class="formulario-grupo fila1">
                         <label for="nombre">Nombre de la actividad</label>
                         <input id="nombre" name="nombre" class="nombre" type="text" required>
@@ -62,14 +61,20 @@
                         </div>
                     </div>
                     <div>
-                            <h4>Foto de portada de Actividad:</h4>
-                            <input type=file name=file1>
-                            <h4>Foto 2 de Actividad:</h4>
-                            <input type=file name=file2>
-                            <h4>Foto 3 de Actividad:</h4>
-                            <input type=file name=file3>
-                            <h4>Foto 4 de Actividad:</h4>
-                            <input type=file name=file4>
+                        <h4>Foto de portada de Actividad:</h4>
+                        <input type=file name=file1>
+                    </div>
+                    <div>
+                        <h4>Foto 2 de Actividad:</h4>
+                        <input type=file name=file2>
+                    </div>
+                    <div>
+                        <h4>Foto 3 de Actividad:</h4>
+                        <input type=file name=file3>
+                    </div>
+                    <div>
+                        <h4>Foto 4 de Actividad:</h4>
+                        <input type=file name=file4>
                     </div>
                     <input type="submit" value="Enviar" id="enviar">
                  </div>
