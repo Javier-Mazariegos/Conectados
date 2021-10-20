@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Cuenta</title>
+	<title>Informacion actividad</title>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
@@ -56,6 +56,7 @@
 							   </div>
 							   
 							   <div class="row">
+								   <!--IF CON FLASK DE MOTRAR O NO, SI EL USUARIO YA ESTA REGISTRADO-->
 								   <form class="form-group col-sm-12 text-center" action="#">
 									   <input type="submit" class="btn btn-danger w-100" value="Registrarme"></input>
 								   </form>
@@ -90,6 +91,7 @@
 						<!--Apartado de los comentarios-->
 						<h3 class="mt-3 text-center">Comentarios</h3>
                     	<hr class="bg-primary mt-0 w-50">
+						<!-- FOR PARA COMENTARIOS -->
 						<div class="row">
                         	<div class="col-sm-12">
                             	<p class="font-weight-bold">Comentario de: Ejemplo1</p>
@@ -108,9 +110,9 @@
                            		<h6 class="text-muted">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Unde ab magnam quia provident pariatur expedita fuga modi ratione maiores iusto aut, eos magni perferendis tempora eius rerum ipsa nobis totam!</h6>
                         	</div>
                     	</div>
-
+						<!--se termina el for-->
 						<div class="row">
-							<form class="form-group text-center col-sm-12 d-flex" action="#">
+							<form class="form-group text-center col-sm-12 d-flex" action="#"> <!--se manda el comentario-->
 								<input type="text" class="form-control w-90 h-100" id="exampleFormControlInput1" placeholder="Escribir un comentario...">
 								<input type="submit" class="btn btn-danger w-10  h-100 mt-0" value="Enviar"></input>
 							</form>	

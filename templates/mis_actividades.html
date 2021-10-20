@@ -29,8 +29,10 @@
             <div class="nuevo">
                 <h2>Mis actividades</h2>
                 <button type="button" class="btn-nuevo" onclick="window.location = 'nueva_actividad';">Nueva actividad</button>
+                <!-- ESTE BUTTON TENDRIA QUE MANDAR A NUEVA_ACTIVIDAD PARA CREAR UN EVENTO-->
             </div>
             <div class="contenedor-cards">
+                <!--FOR DE MOSTRAR TODOS LOS EVENTOS CREADOS DEL USUARIO-->
                 <div class="card">
                     <img src="{{img1}}">
                     <div class="info">
@@ -127,13 +129,14 @@
                         <p class="precio">Q500 por persona</p>
                     </div>
                 </div>
-            </div>
+            </div><!--se mantiene este div-->
         </section>
 
     
         <section class="hacer">
             <h2>Actividades futuras</h2>
             <div class="contenedor-cards">
+                <!--FOR DEL DIC CON EVENTOS REGISTRADOS-->
                 <div class="card_futuras">
                     <img src="{{img1}}">
                     <div class="info">
@@ -164,6 +167,7 @@
                         </form>
                     </div>
                 </div>
+            </div>
         </section>
     </main>
     <footer class="footer">

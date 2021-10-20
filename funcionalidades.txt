@@ -11,6 +11,8 @@ Informacion actividad:
 
 Mis actividades:
 - En el apartado de actividades futuras, cuando se haga click sobre un boton rojo de enviar, se deberia quitar la relacion entre el usuario y ese evento en la base de datos, y cuando se recarge la pagina ya no deberia de aparecer ese evento.
+    - en Mis Actividades: son las que cree.
+    - en Actividades futuras: son las que me registrarme
 - Cuando se le de click a un evento, se deberia de redireccionar a "editar_actividad" y tendria que mostrarse toda la informacion de ese evento.
 
 Editar actividad: 

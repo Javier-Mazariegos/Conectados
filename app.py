@@ -27,6 +27,10 @@ def index():
     img2 = url_for('static',filename="hacer2.jpg")
     img3 = url_for('static',filename="hacer3.jpg")
     img4 = url_for('static',filename="hacer4.jpg")
+    #una query de select que devuelva las categorias, con nombre y id.
+    #una query de select donde vaya a todos los eventos creados y publicarlos. si la value == 0
+                #trayendo la info y id. y guardarlo en un dict, para mandarlo de nuevo. 
+    #se da return a info actividad, mandando el id en el return. #si ya estoy registrado, bandera de registrado
     return template.render(css = css,logoConectados=logoConectados,img1=img1, img2=img2, img3=img3, img4=img4,icono=icono)
 
 @app.route('/registro',methods=["GET","POST"], endpoint="registro")
@@ -41,9 +45,9 @@ def regristro():
     if(request.method == 'POST'):
         #Extracción de los datos del form
         #pais = request.form.get["paises"]
-        nombre = request.form["nombre"]
-        email = request.form["correo"]
-        clave = request.form["clave"]
+        nombre = request.form["nombre"] #nombre_usuario
+        email = request.form["correo"] #correo
+        clave = request.form["clave"] #contrasena
         if 'file' not in request.files:
             print("No se seleccionó ningun archivo 1")
             return template.render(css=css,normalizacioncss=normalizacioncss,logo=logo,scriptregistro=scriptregistro,mensaje="No seleccionó ninguna imagen")
@@ -55,7 +59,9 @@ def regristro():
             print("Archivo seleccionado")
             filename = nombre + "_" + secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            return redirect("/inicioSesion")        
+            #query de insert en user_data toda la info y select del id del usuario INSERT
+            #validacion de que el correo no exista ya. SELECT
+            return redirect("/")        
         return template.render(css=css,normalizacioncss=normalizacioncss,logo=logo,scriptregistro=scriptregistro,mensaje="¡Debes llenar todos los campos!")
     return template.render(css=css,normalizacioncss=normalizacioncss,logo=logo,scriptregistro=scriptregistro,mensaje="")
 
@@ -71,6 +77,7 @@ def inicioSesion():
         clave = request.form["clave"]
         if email == "" or clave == "":
             return template.render(css=css,normalizacioncss=normalizacioncss,logo=logo,mensaje="¡Debes llenar todos los campos!")
+        #validar si correo existe y si sí, obtener el id de usuario. SELECT
         return redirect("/")
     return template.render(css=css,normalizacioncss=normalizacioncss,logo=logo,mensaje="")
 
@@ -81,6 +88,7 @@ def nueva_actividad():
     logo = url_for('static',filename="conectados.png")
     template = env.get_template('nueva_actividad.html')
     scriptNuevaActividad = url_for('static',filename="nueva_actividad_scripts.js")
+    #RECIBIR O RECORDAR TENER LE ID DEL USUARIO
     if request.method == "POST":
         nombre = request.form["nombre"]
         descripcion = request.form["descripcion"]
@@ -96,7 +104,8 @@ def nueva_actividad():
         #foto2 = request.form["file2"]
         #foto3 = request.form["file3"]
         #foto4 = request.form["file4"]
-        return redirect("/")
+        #INSERT en la tabla de eventos creados. 
+        return redirect("/mis_actividades")
     return template.render(css=css,normalizacioncss=normalizacioncss,logo=logo,scriptNuevaActividad=scriptNuevaActividad)
 
 @app.route('/cuenta',methods=["GET","POST"], endpoint="cuenta")
@@ -104,6 +113,8 @@ def cuenta():
     css = url_for('static',filename="cuenta.css")
     template = env.get_template('cuenta.html')
     logo = url_for('static',filename="conectados.png")
+    #un if de si la variable de loggin tiene algo, y si sí, retornar la info del usuario con respecto al id. SELECT
+    #Si no hay algo, enviar a /iniciosesion
     return template.render(css = css, logo = logo)
 
 @app.route('/mis_actividades',methods=["GET","POST"], endpoint="mis_actividades")
@@ -115,9 +126,14 @@ def mis_actividades():
     img2 = url_for('static',filename="hacer2.jpg")
     img3 = url_for('static',filename="hacer3.jpg")
     img4 = url_for('static',filename="hacer4.jpg")
+    #query que devuelva las actividades creadas por el usuario,
+    #querye que devueva las actividades futurias del usuario, registradas. 
+    #enviar a NUEVA ACTIVIDAD
+    #SI LE DA A UN EVENTO HACER LO MISMO QUE EN "/", #se da return a info actividad, mandando el id en el return SI ES DE FUTURIOS
+    #SI LE DA A LOS EVENTOS DE MIS ACTIVIDADES, ENVIAR A EDITAR_ACTIVDAD
     return template.render(css = css,logo=logo,img1=img1, img2=img2, img3=img3, img4=img4)
 
-@app.route('/informacion_actividad',methods=["GET","POST"], endpoint="informacion_actividad")
+@app.route('/informacion_actividad',methods=["GET","POST"], endpoint="informacion_actividad")#tengo que recibir el id del evento seleccionado. 
 def informacion_actividad():
     css = url_for('static',filename="informacion_actividad.css")
     template = env.get_template('informacion_actividad.html')
@@ -126,6 +142,10 @@ def informacion_actividad():
     img2 = url_for('static',filename="hacer2.jpg")
     img3 = url_for('static',filename="hacer3.jpg")
     img4 = url_for('static',filename="hacer4.jpg")
+    #POR CADA ACCION DE COMENTARIO, ES PROBLE QUE SE TENGA QUE REFERSCAR, Y SE DEBE ESTAR MANDO CONSTANTEMENTE EL ID DEL EVENTO EN EL QUE SE ESTA
+    #cuando caigo aquí, debo hacer un select, de la info del evento que traigo del html. 
+    #cuando le de a registrarme, hacer insert en la base de datos, donde es: usuario_evento_registrado
+    #cuando le de al comentario, insert en la tabla de comentarios. y mandar ID nuevamente del evento
     return template.render(css = css, logo = logo,img1=img1, img2=img2, img3=img3, img4=img4)
 
 @app.route('/editar_actividad',methods=["GET","POST"], endpoint="editar_actividad")
@@ -137,6 +157,9 @@ def editar_actividad():
     img2 = url_for('static',filename="hacer2.jpg")
     img3 = url_for('static',filename="hacer3.jpg")
     img4 = url_for('static',filename="hacer4.jpg")
+    #RECIBIR EL ID DEL EVENTO
+    #si le da a eliminar, hacer una función que le mande correo a todos los usuarios que estan registrados.
+    #si le da eliminar comentario, se vuelve a mandar el ID para mantener el ciclo. 
     return template.render(css = css, logo = logo,img1=img1, img2=img2, img3=img3, img4=img4)
 
 
