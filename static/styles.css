@@ -95,7 +95,7 @@ h3{
     height: 4rem;
 }
 
-form input[type="text"]{
+form select{
     flex: 1;
     border: none;
     border-radius: 10px;
