@@ -30,7 +30,7 @@
      <!--Navegacion-->
     <main id="main">
         <div class="cont sombra">
-            <form class="formulario" method="POST" action="">
+            <form class="formulario" method="POST" action="" enctype=multipart/form-data>
                 <div class="principal">
                     <h2>Agregar Actividad</h2>
                     <h4>{{mensaje}}</h4>
@@ -61,27 +61,15 @@
                             <input id="precio" name = "precio" class="precio" type="text" required>
                         </div>
                     </div>
-                    <div class="contenedor-imagenes">
-                        <div class="profile-pic-div1">
-                            <img id="photo1">
-                            <input type="file" id="file1">
-                            <label for="file1" name ="file1" id="uploadbtn1">Elegir foto</label>
-                        </div>
-                        <div class="profile-pic-div2">
-                            <img id="photo2">
-                            <input type="file" id="file2">
-                            <label for="file2" name ="file2" id="uploadbtn2">Elegir foto</label>
-                        </div>
-                        <div class="profile-pic-div3">
-                            <img id="photo3">
-                            <input type="file" id="file3">
-                            <label for="file3" name ="file3" id="uploadbtn3">Elegir foto</label>
-                        </div>
-                        <div class="profile-pic-div4">
-                            <img id="photo4">
-                            <input type="file" id="file4">
-                            <label for="file4" name ="file4" id="uploadbtn4">Elegir foto</label>
-                        </div>
+                    <div>
+                            <h4>Foto 1 de Actividad:</h4>
+                            <input type=file name=file1>
+                            <h4>Foto 2 de Actividad:</h4>
+                            <input type=file name=file2>
+                            <h4>Foto 3 de Actividad:</h4>
+                            <input type=file name=file3>
+                            <h4>Foto 4 de Actividad:</h4>
+                            <input type=file name=file4>
                     </div>
                     <input type="submit" value="Enviar" id="enviar">
                  </div>
