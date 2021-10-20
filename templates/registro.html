@@ -19,15 +19,16 @@
     </header>
     <main id="main">
         <div class="contenedor sombra">
-            <form method="POST" id="frmDatos" action=""> 
+            <form method="POST" id="frmDatos" action="" enctype=multipart/form-data> 
                 <legend>Registrarse</legend>
                 <div class="campos">
                     <h3>Te damos la bienvenida a Conectados</h3>
                     <!-- Foto de perfil -->
-                    <div class="profile-pic-div">
+                    <div class="">
                         <img id="photo">
-                        <input type="file" name="file" id="file">
-                        <label for="file" id="uploadbtn">Elegir foto</label>
+                        <form method=post enctype=multipart/form-data>
+                            <input type=file name=file>
+                        </form>
                     </div>
                     <!-- Fin foto de perfil -->
                         <input type="text" placeholder="Pais" name="Pais" id="Pais" required>

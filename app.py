@@ -1,10 +1,20 @@
 from flask.helpers import _endpoint_from_view_func, url_for
-from flask import Flask, request, redirect
+from flask import Flask, request, redirect, flash
 from jinja2 import Template, Environment, FileSystemLoader
+from werkzeug.utils import secure_filename
+import os
+
+UPLOAD_FOLDER = 'C:/Users/mepg1/Documents/GitHub/Conectados/images'
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 
 File_loader = FileSystemLoader("templates")
 env = Environment(loader=File_loader)
 app = Flask(__name__)
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 @app.route('/',methods=["GET","POST"], endpoint="index")
 def index():
@@ -29,14 +39,23 @@ def regristro():
     #Dentro de request 'POST'
     if(request.method == 'POST'):
         #Extracción de los datos del form
-        #foto = request.form.files.get["file"]
         #pais = request.form.get["paises"]
         nombre = request.form["nombre"]
         email = request.form["correo"]
         clave = request.form["clave"]
-        if nombre == "" or email == "" or clave == "":
-            return template.render(css=css,normalizacioncss=normalizacioncss,logo=logo,scriptregistro=scriptregistro,mensaje="¡Debes llenar todos los campos!")
-        return redirect("/inicioSesion")
+        if 'file' not in request.files:
+            print("No se seleccionó ningun archivo 1")
+            return template.render(css=css,normalizacioncss=normalizacioncss,logo=logo,scriptregistro=scriptregistro,mensaje="No seleccionó ninguna imagen")
+        file = request.files['file']
+        if file.filename == '':
+            print("No se seleccionó ningun archivo 2")
+            return template.render(css=css,normalizacioncss=normalizacioncss,logo=logo,scriptregistro=scriptregistro,mensaje="No seleccionó ninguna imagen")
+        if file and allowed_file(file.filename):
+            print("Archivo seleccionado")
+            filename = nombre + "_" + secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            return redirect("/inicioSesion")        
+        return template.render(css=css,normalizacioncss=normalizacioncss,logo=logo,scriptregistro=scriptregistro,mensaje="¡Debes llenar todos los campos!")
     return template.render(css=css,normalizacioncss=normalizacioncss,logo=logo,scriptregistro=scriptregistro,mensaje="")
 
 @app.route('/inicioSesion',methods=["GET","POST"], endpoint="inicioSesion")
