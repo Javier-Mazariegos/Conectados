@@ -106,11 +106,11 @@ def nueva_actividad():
             return template.render(css=css,normalizacioncss=normalizacioncss,logo=logo,scriptNuevaActividad=scriptNuevaActividad)
         file = request.files['file1']
         if file.filename == '':
-            pass
+            print("No se seleccionó ningun archivo 2")
+            return template.render(css=css,normalizacioncss=normalizacioncss,logo=logo,scriptNuevaActividad=scriptNuevaActividad,mensaje="Debe ingresar una foto de portada para el evento")
         if file and allowed_file(file.filename):
-            contadorImagenes += 1
             print("Archivo seleccionado")
-            filename = nombre + "_foto" + str(contadorImagenes) + "_" + secure_filename(file.filename)
+            filename = nombre + "_fotoPortada_" + secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         file = request.files['file2']
         if file.filename == '':
@@ -136,15 +136,8 @@ def nueva_actividad():
             print("Archivo seleccionado")
             filename = nombre + "_foto" + str(contadorImagenes) + "_" + secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        #foto1 = request.form["file1"]
-        #foto2 = request.form["file2"]
-        #foto3 = request.form["file3"]
-        #foto4 = request.form["file4"]
         #INSERT en la tabla de eventos creados.
-        if contadorImagenes == 0: 
-            return template.render(css=css,normalizacioncss=normalizacioncss,logo=logo,scriptNuevaActividad=scriptNuevaActividad, mensaje="Debe ingresar al menos 1 imagen")
-        else:
-            return redirect("/mis_actividades")
+        return redirect("/mis_actividades")
     return template.render(css=css,normalizacioncss=normalizacioncss,logo=logo,scriptNuevaActividad=scriptNuevaActividad)
 
 @app.route('/cuenta',methods=["GET","POST"], endpoint="cuenta")
