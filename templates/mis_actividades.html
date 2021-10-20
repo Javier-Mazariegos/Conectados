@@ -27,8 +27,8 @@
     <main class="contenido contenedor">
         <section class="hacer">
             <div class="nuevo">
-                <h2>Mis eventos</h2>
-                <button type="button" class="btn-nuevo" onclick="window.location = 'http://127.0.0.1:5000/nueva_actividad';">Nuevo evento</button>
+                <h2>Mis actividades</h2>
+                <button type="button" class="btn-nuevo" onclick="window.location = 'nueva_actividad';">Nueva actividad</button>
             </div>
             <div class="contenedor-cards">
                 <div class="card">
@@ -132,30 +132,36 @@
 
     
         <section class="hacer">
-            <h2>Eventos futuros</h2>
+            <h2>Actividades futuras</h2>
             <div class="contenedor-cards">
-                <div class="card">
+                <div class="card_futuras">
                     <img src="{{img1}}">
                     <div class="info">
-                        <p class="categoria">concierto</p>
+                        <p class="categoria">Fecha de la actividad: 18/10/2021</p>
                         <p class="titulo">Actividad 1</p>
-                        <p class="precio">Q1,200 por persona</p>
+                        <form action="#">
+                            <input type="submit" class="btn-eliminar">
+                        </form>
                     </div>
                 </div>
-                <div class="card">
+                <div class="card_futuras">
                     <img src="{{img2}}">
                     <div class="info">
-                        <p class="categoria">streaming</p>
+                        <p class="categoria">Fecha de la actividad: 19/10/2021</p>
                         <p class="titulo">Actividad 2</p>
-                        <p class="precio">Q300 por persona</p>
+                        <form action="#">
+                            <input type="submit" class="btn-eliminar">
+                        </form>
                     </div>
                 </div>
-                <div class="card">
+                <div class="card_futuras">
                     <img src="{{img3}}">
                     <div class="info">
-                        <p class="categoria">Cafe</p>
+                        <p class="categoria">Fecha de la actividad: 20/10/2021</p>
                         <p class="titulo">Actividad 3</p>
-                        <p class="precio">Q400 por persona</p>
+                        <form action="#">
+                            <input type="submit" class="btn-eliminar">
+                        </form>
                     </div>
                 </div>
         </section>

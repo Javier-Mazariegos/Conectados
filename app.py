@@ -92,6 +92,29 @@ def mis_actividades():
     img4 = url_for('static',filename="hacer4.jpg")
     return template.render(css = css,logo=logo,img1=img1, img2=img2, img3=img3, img4=img4)
 
+@app.route('/informacion_actividad',methods=["GET","POST"], endpoint="informacion_actividad")
+def informacion_actividad():
+    css = url_for('static',filename="informacion_actividad.css")
+    template = env.get_template('informacion_actividad.html')
+    logo = url_for('static',filename="conectados.png")
+    img1 = url_for('static',filename="hacer1.jpg")
+    img2 = url_for('static',filename="hacer2.jpg")
+    img3 = url_for('static',filename="hacer3.jpg")
+    img4 = url_for('static',filename="hacer4.jpg")
+    return template.render(css = css, logo = logo,img1=img1, img2=img2, img3=img3, img4=img4)
+
+@app.route('/editar_actividad',methods=["GET","POST"], endpoint="editar_actividad")
+def editar_actividad():
+    css = url_for('static',filename="editar_actividad.css")
+    template = env.get_template('editar_actividad.html')
+    logo = url_for('static',filename="conectados.png")
+    img1 = url_for('static',filename="hacer1.jpg")
+    img2 = url_for('static',filename="hacer2.jpg")
+    img3 = url_for('static',filename="hacer3.jpg")
+    img4 = url_for('static',filename="hacer4.jpg")
+    return template.render(css = css, logo = logo,img1=img1, img2=img2, img3=img3, img4=img4)
+
+
 
 
 if __name__ == '__main__':
