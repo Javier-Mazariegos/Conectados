@@ -1,0 +1,21 @@
+Login y Registro:
+ - Des pues de registrarse deberia de edireccionar a "/"
+
+Pagina Principal: 
+ - Cuando se le da click al boton de buscar en etiqueta, deberian de aparecer solo las actividades con esa etiqueta.
+ - Cuando se le da click a una actividad de la pagina principal deberia de redireccionar a "/informacion_actividad", y se deberia de mostrar toda la infrmacion de esa actividad
+
+Informacion actividad:
+ - Cuando se le da click al boton de registrarme, en la base de datos deberia de relacionar a la persona con ese evento, luego se redirecciona a "mis actividades" y en el apartado de actividades futuras deberia de aparecer la actividad a la que se registro.
+ - En el apartado de comentarios, cuando envie el comentario se deberia de recargar la pagina y deberia de aparecer el nuevo comentario.
+
+Mis actividades:
+- En el apartado de actividades futuras, cuando se haga click sobre un boton rojo de enviar, se deberia quitar la relacion entre el usuario y ese evento en la base de datos, y cuando se recarge la pagina ya no deberia de aparecer ese evento.
+- Cuando se le de click a un evento, se deberia de redireccionar a "editar_actividad" y tendria que mostrarse toda la informacion de ese evento.
+
+Editar actividad: 
+ - Con el boton eliminar actividad, se debria de eliminar esa actividad en la base de datos.
+ - Con el boton de eliminar que se encuentra a la par de cada comentario, deberia de eliminar ese comentario.
+
+Cuenta:
+ - Con el boton de eliminar cuenta, se deberia de eliminar la cuenta de ese usuario y todas sus actividades. 
