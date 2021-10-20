@@ -3,6 +3,7 @@ from flask import Flask, request, redirect, flash
 from jinja2 import Template, Environment, FileSystemLoader
 from werkzeug.utils import secure_filename
 import os
+from datetime import datetime
 
 UPLOAD_FOLDER = 'C:/Users/mepg1/Documents/GitHub/Conectados/images'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
@@ -83,8 +84,13 @@ def nueva_actividad():
     if request.method == "POST":
         nombre = request.form["nombre"]
         descripcion = request.form["descripcion"]
-        #categoria = request.form["categoria"]
-        #fecha = request.form["fecha"]
+        categoria = request.form.get("categoria")
+        fecha_hora = datetime.strptime(request.form['fecha'], "%Y-%m-%dT%H:%M")
+        fecha = str(fecha_hora.day) + "-" +str(fecha_hora.month) + "-" + str(fecha_hora.year)
+        if fecha_hora.minute < 10:
+            hora = str(fecha_hora.hour) + ":0" + str(fecha_hora.minute)
+        else:
+            hora = str(fecha_hora.hour) + ":" + str(fecha_hora.minute)
         precio = request.form["precio"]
         #foto1 = request.form["file1"]
         #foto2 = request.form["file2"]
