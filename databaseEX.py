@@ -41,7 +41,7 @@ cursor = conn.cursor()
 schema = "public"
 table = 'user_data'
 correo = "cmalvarado@ufm.edu"
-sql_command = "SELECT id FROM {}.{} WHERE {}.{}.correo = %s;".format(str(schema), str(table), str(schema), str(table))
+#sql_command = "SELECT id FROM {}.{} WHERE {}.{}.correo = %s;".format(str(schema), str(table), str(schema), str(table))
 sql_command = "SELECT id FROM public.user_data WHERE public.user_data.correo = %s and public.user_data.contrasena = %s;"
 cursor.execute(sql_command, (correo, '125O34'))
 records = cursor.fetchall()
@@ -148,9 +148,21 @@ print('----------------')
 #hora = "15:00:00"
 #precio = 150
 #path_foto_p = "berkejbn.jpg"
+#categoria = 3
 #sql_command = "INSERT INTO public.evento_data(nombre, description, fecha, hora, precio, path_foto_p)VALUES (%s, %s, %s, %s, %s, %s);"
 #cursor.execute(sql_command, (nombre, description, fecha, hora, precio, path_foto_p, ))
 #conn.commit()
+#SELECT DEL ID DEL EVENTO CREADO
+#sql_command = "SELECT id FROM public.evento_data ORDER BY evento_data.id DESC LIMIT 1;"
+#cursor.execute(sql_command, )
+#records = cursor.fetchall()
+#for row in records:
+#    id_evento = row[0]
+#--- otro insert
+#id_evento = 3
+#id_categoria = 2
+#sql_command = "INSERT INTO public.evento_categoria(id_evento, id_categoria)VALUES(%s, %s);"
+#cursor.execute(sql_command, (id_evento, id_categoria, ))
 #cursor.close()
 #conn.close()
 #--------------------------
@@ -163,7 +175,7 @@ print('----------------')
 #id = 2
 #comentario = "No me convence mucho la comida de abuela, creo que no pagaria por verlas."
 #sql_command = "INSERT INTO public.evento_comentarios(id_evento, id_user, comentario)VALUES (%s, %s, %s);"
-#cursor.execute(sql_command, (id_evento, id, comentario ))
+#cursor.execute(sql_command, (id_evento, id, comentario, ))
 #conn.commit()
 #cursor.close()
 #conn.close()
@@ -176,7 +188,7 @@ print('----------------')
 #id_user = 2
 #id_evento = 1
 #sql_command = "INSERT INTO public.usuario_evento_creado(id_user, id_evento)VALUES (%s, %s);"
-#cursor.execute(sql_command, (id_user, id_evento ))
+#cursor.execute(sql_command, (id_user, id_evento, ))
 #conn.commit()
 #cursor.close()
 #conn.close()
@@ -189,7 +201,7 @@ print('----------------')
 #id_user = 2
 #id_evento = 2
 #sql_command = "INSERT INTO public.usuario_evento_registrado(id_user, id_evento) VALUES (%s, %s);"
-#cursor.execute(sql_command, (id_user, id_evento ))
+#cursor.execute(sql_command, (id_user, id_evento, ))
 #conn.commit()
 #cursor.close()
 #conn.close()
