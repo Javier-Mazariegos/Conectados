@@ -1,5 +1,5 @@
 from flask.helpers import _endpoint_from_view_func, url_for
-from flask import Flask, request, redirect, flash
+from flask import Flask, request, redirect, session
 from jinja2 import Template, Environment, FileSystemLoader
 from werkzeug.utils import secure_filename
 import os
@@ -12,6 +12,7 @@ File_loader = FileSystemLoader("templates")
 env = Environment(loader=File_loader)
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.secret_key = "contraseña"
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -27,11 +28,16 @@ def index():
     img2 = url_for('static',filename="hacer2.jpg")
     img3 = url_for('static',filename="hacer3.jpg")
     img4 = url_for('static',filename="hacer4.jpg")
+    if (request.method == "POST"):
+        pass
     #una query de select que devuelva las categorias, con nombre y id.
     #una query de select donde vaya a todos los eventos creados y publicarlos. si la value == 0
                 #trayendo la info y id. y guardarlo en un dict, para mandarlo de nuevo. 
     #se da return a info actividad, mandando el id en el return. #si ya estoy registrado, bandera de registrado
-    return template.render(css = css,logoConectados=logoConectados,img1=img1, img2=img2, img3=img3, img4=img4,icono=icono)
+    if "sesion" in session:
+        return template.render(css = css,logoConectados=logoConectados,img1=img1, img2=img2, img3=img3, img4=img4,icono=icono)
+    else:
+        return redirect("/inicioSesion")
 
 @app.route('/registro',methods=["GET","POST"], endpoint="registro")
 def regristro():
@@ -44,7 +50,7 @@ def regristro():
     #Dentro de request 'POST'
     if(request.method == 'POST'):
         #Extracción de los datos del form
-        #pais = request.form.get["paises"]
+        pais = request.form["Pais"] #pais
         nombre = request.form["nombre"] #nombre_usuario
         email = request.form["correo"] #correo
         clave = request.form["clave"] #contrasena
@@ -61,6 +67,7 @@ def regristro():
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             #query de insert en user_data toda la info y select del id del usuario INSERT
             #validacion de que el correo no exista ya. SELECT
+            session['sesion'] = "id"
             return redirect("/")        
         return template.render(css=css,normalizacioncss=normalizacioncss,logo=logo,scriptregistro=scriptregistro,mensaje="¡Debes llenar todos los campos!")
     return template.render(css=css,normalizacioncss=normalizacioncss,logo=logo,scriptregistro=scriptregistro,mensaje="")
@@ -78,6 +85,7 @@ def inicioSesion():
         if email == "" or clave == "":
             return template.render(css=css,normalizacioncss=normalizacioncss,logo=logo,mensaje="¡Debes llenar todos los campos!")
         #validar si correo existe y si sí, obtener el id de usuario. SELECT
+        session['sesion'] = "id"
         return redirect("/")
     return template.render(css=css,normalizacioncss=normalizacioncss,logo=logo,mensaje="")
 
@@ -145,6 +153,8 @@ def cuenta():
     css = url_for('static',filename="cuenta.css")
     template = env.get_template('cuenta.html')
     logo = url_for('static',filename="conectados.png")
+    if (request.method == "DELETE"):
+        pass
     #un if de si la variable de loggin tiene algo, y si sí, retornar la info del usuario con respecto al id. SELECT
     #Si no hay algo, enviar a /iniciosesion
     return template.render(css = css, logo = logo)
@@ -158,6 +168,8 @@ def mis_actividades():
     img2 = url_for('static',filename="hacer2.jpg")
     img3 = url_for('static',filename="hacer3.jpg")
     img4 = url_for('static',filename="hacer4.jpg")
+    if (request.method == "POST"):
+        pass
     #query que devuelva las actividades creadas por el usuario,
     #querye que devueva las actividades futurias del usuario, registradas. 
     #enviar a NUEVA ACTIVIDAD
@@ -189,6 +201,8 @@ def editar_actividad():
     img2 = url_for('static',filename="hacer2.jpg")
     img3 = url_for('static',filename="hacer3.jpg")
     img4 = url_for('static',filename="hacer4.jpg")
+    if (request.method == "POST"):
+        pass
     #RECIBIR EL ID DEL EVENTO
     #si le da a eliminar, hacer una función que le mande correo a todos los usuarios que estan registrados.
     #si le da eliminar comentario, se vuelve a mandar el ID para mantener el ciclo. 
