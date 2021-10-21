@@ -36,7 +36,7 @@ def index():
     if (request.method == "POST"):
         #MARIO ESTA ES TU PARTE <3
         #var de el id de la categoria
-        cate = 0
+        cate = request.form.get("busqueda")
         if cate == 0:
             openConnection()
             cursor = conn.cursor()
