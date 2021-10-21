@@ -121,6 +121,24 @@ for row in records:
         print(i)
 cursor.close()
 conn.close()
+
+
+
+print("MI QUERY SHUCA ----\n\n\n\n")
+openConnection()
+cursor = conn.cursor()
+id = []
+for i in range(2):
+    id.append(i+1)
+id = tuple(id)
+sql_command = "SELECT evento_data.id, evento_data.nombre, evento_data.precio, evento_data.path_foto_p, categoria.nombre FROM ((evento_data INNER JOIN evento_categoria ON evento_data.id = evento_categoria.id_evento) INNER JOIN categoria ON evento_categoria.id_categoria = categoria.id) WHERE evento_data.id IN %s;"
+cursor.execute(sql_command, (id, ))
+records = cursor.fetchall()
+for row in records:
+    for i in row:
+        print(i)
+cursor.close()
+conn.close()
 #--------------------------INSERT QUERY
 print('----------------')
 #INSERT DE INFORMACION DE USUARIO LUEGO DE UN REGISTRO

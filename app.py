@@ -34,8 +34,6 @@ def index():
     logoConectados = url_for('static',filename="conectados2.png")
     css = url_for('static',filename="styles.css")
     if (request.method == "POST"):
-        #MARIO ESTA ES TU PARTE <3
-        #var de el id de la categoria
         cate = request.form.get("busqueda")
         if cate == 0:
             openConnection()
@@ -236,33 +234,82 @@ def mis_actividades():
     template = env.get_template('mis_actividades.html')
     logo = url_for('static',filename="conectados.png")
     css = url_for('static',filename="mis_actividades.css")
-    img1 = url_for('static',filename="hacer1.jpg")
-    img2 = url_for('static',filename="hacer2.jpg")
-    img3 = url_for('static',filename="hacer3.jpg")
-    img4 = url_for('static',filename="hacer4.jpg")
-    if (request.method == "POST"):
-        pass
-    #query que devuelva las actividades creadas por el usuario,
-    #querye que devueva las actividades futurias del usuario, registradas. 
-    #enviar a NUEVA ACTIVIDAD
-    #SI LE DA A UN EVENTO HACER LO MISMO QUE EN "/", #se da return a info actividad, mandando el id en el return SI ES DE FUTURIOS
-    #SI LE DA A LOS EVENTOS DE MIS ACTIVIDADES, ENVIAR A EDITAR_ACTIVDAD
-    return template.render(css = css,logo=logo,img1=img1, img2=img2, img3=img3, img4=img4)
+    CREADOS = ""
+    REGISTRADOS = ""
+    if (request.method == "DELETE"):
+        pass#eliminar cuentas futuras
+    else:
+        #ID DE EVENTOS CREADOS:
+        openConnection()
+        cursor = conn.cursor()
+        id = session["sesion"]
+        ids = []
+        sql_command = "SELECT id_evento FROM usuario_evento_creado where id_user = $s"
+        cursor.execute(sql_command, (id, ))
+        records = cursor.fetchall()
+        for row in records:
+            ids.append(row[0])
+        cursor.close()
+        conn.close()
+        ids = tuple(ids)
+        #MIS EVENTOS CREADOS:
+        openConnection()
+        cursor = conn.cursor()
+        sql_command = "SELECT evento_data.id, evento_data.nombre, evento_data.precio, evento_data.path_foto_p, categoria.nombre FROM ((evento_data INNER JOIN evento_categoria ON evento_data.id = evento_categoria.id_evento) INNER JOIN categoria ON evento_categoria.id_categoria = categoria.id) WHERE evento_data.id IN %s;"
+        cursor.execute(sql_command, (ids, ))
+        CREADOS = cursor.fetchall()
+        cursor.close()
+        conn.close()
+        #MIS EVENTOS REGISTRADOS IDS
+        openConnection()
+        cursor = conn.cursor()
+        id = session["sesion"]
+        ids = []
+        sql_command = "SELECT id_evento FROM usuario_evento_registrado where id_user = $s"
+        cursor.execute(sql_command, (id, ))
+        records = cursor.fetchall()
+        for row in records:
+            ids.append(row[0])
+        cursor.close()
+        conn.close()
+        ids = tuple(ids)
+        #MIS EVENTOS REGISTRADOS
+        openConnection()
+        cursor = conn.cursor()
+        sql_command = "SELECT evento_data.id, evento_data.nombre, evento_data.precio, evento_data.path_foto_p, categoria.nombre FROM ((evento_data INNER JOIN evento_categoria ON evento_data.id = evento_categoria.id_evento) INNER JOIN categoria ON evento_categoria.id_categoria = categoria.id) WHERE evento_data.id IN %s;"
+        cursor.execute(sql_command, (ids, ))
+        REGISTRADOS = cursor.fetchall()
+        cursor.close()
+        conn.close()
+    return template.render(css = css,logo=logo,creados=CREADOS, registrados = REGISTRADOS)
 
 @app.route('/informacion_actividad',methods=["GET","POST"], endpoint="informacion_actividad")#tengo que recibir el id del evento seleccionado. 
 def informacion_actividad():
     css = url_for('static',filename="informacion_actividad.css")
     template = env.get_template('informacion_actividad.html')
     logo = url_for('static',filename="conectados.png")
-    img1 = url_for('static',filename="hacer1.jpg")
-    img2 = url_for('static',filename="hacer2.jpg")
-    img3 = url_for('static',filename="hacer3.jpg")
-    img4 = url_for('static',filename="hacer4.jpg")
-    #POR CADA ACCION DE COMENTARIO, ES PROBLE QUE SE TENGA QUE REFERSCAR, Y SE DEBE ESTAR MANDO CONSTANTEMENTE EL ID DEL EVENTO EN EL QUE SE ESTA
-    #cuando caigo aquí, debo hacer un select, de la info del evento que traigo del html. 
-    #cuando le de a registrarme, hacer insert en la base de datos, donde es: usuario_evento_registrado
-    #cuando le de al comentario, insert en la tabla de comentarios. y mandar ID nuevamente del evento
-    return template.render(css = css, logo = logo,img1=img1, img2=img2, img3=img3, img4=img4)
+    if (request.method == "POST"):
+        #if es registro, entonces return redirect /mis actividades
+        #else insert de comentario, pass
+        #insert en evento registrado, o insert en comentarios del evento
+        pass
+    openConnection()
+    cursor = conn.cursor()
+    id = 2#ID DEL EVENTO QUE RECIBO
+    sql_command = "SELECT * FROM public.evento_data WHERE evento_data.id = %s;"
+    cursor.execute(sql_command, (id, ))
+    informacion = cursor.fetchall()
+    cursor.close()
+    conn.close()  
+    openConnection()
+    cursor = conn.cursor()
+    id = 2#IDE DEL EVENTO RECIBIDO
+    sql_command = "SELECT user_data.nombre_usuario, evento_comentarios.comentario FROM (user_data INNER JOIN evento_comentarios ON user_data.id = evento_comentarios.id_user) where evento_comentarios.id_evento = %s"
+    cursor.execute(sql_command, (id, ))
+    comentarios = cursor.fetchall()
+    cursor.close()
+    conn.close()
+    return template.render(css = css, logo = logo,informacion = informacion, comentarios = comentarios)
 
 @app.route('/editar_actividad',methods=["GET","POST"], endpoint="editar_actividad")
 def editar_actividad():
