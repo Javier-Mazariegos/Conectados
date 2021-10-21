@@ -14,7 +14,7 @@ def openConnection():# Set up a connection to the postgres server.
                             user="postgres",
                             password="CharleiAlvSql")
 
-UPLOAD_FOLDER = 'C:/Users/mepg1/Documents/GitHub/Conectados/images'
+UPLOAD_FOLDER = os.getcwd() + '/images'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 
 File_loader = FileSystemLoader("templates")
