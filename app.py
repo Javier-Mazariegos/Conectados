@@ -34,6 +34,7 @@ def index():
     logoConectados = url_for('static',filename="conectados2.png")
     css = url_for('static',filename="styles.css")
     if (request.method == "POST"):
+        #MARIO ESTA ES TU PARTE <3
         #var de el id de la categoria
         cate = 0
         if cate == 0:
@@ -135,9 +136,18 @@ def inicioSesion():
         clave = request.form["clave"]
         if email == "" or clave == "":
             return template.render(css=css,normalizacioncss=normalizacioncss,logo=logo,mensaje="¡Debes llenar todos los campos!")
-        #validar si correo existe y si sí, obtener el id de usuario. SELECT
-        session['sesion'] = "id"
-        return redirect("/")
+        else:
+            #SELECT ID DEL USUARIO LOGGIN
+            openConnection()
+            cursor = conn.cursor()
+            sql_command = "SELECT id FROM public.user_data WHERE  public.user_data.correo = %s and public.user_data.contrasena = %s;"
+            cursor.execute(sql_command, (email, clave))
+            records = cursor.fetchall()
+            for row in records:
+                session['sesion'] = row[0]
+            cursor.close()
+            conn.close()
+            return redirect("/")
     return template.render(css=css,normalizacioncss=normalizacioncss,logo=logo,mensaje="")
 
 @app.route('/nueva_actividad',methods=["GET","POST"], endpoint="nueva_actividad")
@@ -204,11 +214,22 @@ def cuenta():
     css = url_for('static',filename="cuenta.css")
     template = env.get_template('cuenta.html')
     logo = url_for('static',filename="conectados.png")
+    id = ""
     if (request.method == "DELETE"):
         pass
-    #un if de si la variable de loggin tiene algo, y si sí, retornar la info del usuario con respecto al id. SELECT
-    #Si no hay algo, enviar a /iniciosesion
-    return template.render(css = css, logo = logo)
+    else:
+        openConnection()
+        cursor = conn.cursor()
+        if "sesion" in session:
+            id = session["sesion"]
+            sql_command = "SELECT correo, nombre_usuario, pais, path_foto FROM public.user_data WHERE  public.user_data.id = %s;"
+            cursor.execute(sql_command, (id, ))
+            records = cursor.fetchall()
+            cursor.close()
+            conn.close()
+            return template.render(css = css, logo = logo, records = records)
+        else:
+            return redirect("/inicioSesion")
 
 @app.route('/mis_actividades',methods=["GET","POST"], endpoint="mis_actividades")
 def mis_actividades():
