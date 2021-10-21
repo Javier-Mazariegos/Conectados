@@ -1,9 +1,18 @@
 from flask.helpers import _endpoint_from_view_func, url_for
 from flask import Flask, request, redirect, session
 from jinja2 import Template, Environment, FileSystemLoader
+from jinja2.environment import create_cache
 from werkzeug.utils import secure_filename
 import os
 from datetime import datetime
+import psycopg2
+conn = ""
+def openConnection():# Set up a connection to the postgres server.
+    global conn
+    conn = psycopg2.connect(host="localhost",
+                            database="demoConectados",
+                            user="postgres",
+                            password="CharleiAlvSql")
 
 UPLOAD_FOLDER = 'C:/Users/mepg1/Documents/GitHub/Conectados/images'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
@@ -20,22 +29,40 @@ def allowed_file(filename):
 
 @app.route('/',methods=["GET","POST"], endpoint="index")
 def index():
+    records = ""
     template = env.get_template('index.html')
-    icono = url_for('static',filename="hamburgesa.png")
     logoConectados = url_for('static',filename="conectados2.png")
     css = url_for('static',filename="styles.css")
-    img1 = url_for('static',filename="hacer1.jpg")
-    img2 = url_for('static',filename="hacer2.jpg")
-    img3 = url_for('static',filename="hacer3.jpg")
-    img4 = url_for('static',filename="hacer4.jpg")
     if (request.method == "POST"):
-        pass
-    #una query de select que devuelva las categorias, con nombre y id.
-    #una query de select donde vaya a todos los eventos creados y publicarlos. si la value == 0
-                #trayendo la info y id. y guardarlo en un dict, para mandarlo de nuevo. 
-    #se da return a info actividad, mandando el id en el return. #si ya estoy registrado, bandera de registrado
+        #var de el id de la categoria
+        cate = 0
+        if cate == 0:
+            openConnection()
+            cursor = conn.cursor()
+            sql_command = "SELECT evento_data.id, evento_data.nombre, evento_data.precio, evento_data.path_foto_p, categoria.nombre FROM ((evento_data INNER JOIN evento_categoria ON evento_data.id = evento_categoria.id_evento) INNER JOIN categoria ON evento_categoria.id_categoria = categoria.id);"
+            cursor.execute(sql_command, )
+            records = cursor.fetchall()
+            cursor.close()
+            conn.close()
+        else:
+            openConnection()
+            cursor = conn.cursor()
+            id = cate
+            sql_command = "SELECT evento_data.id, evento_data.nombre, evento_data.precio, evento_data.path_foto_p, categoria.nombre FROM ((evento_data INNER JOIN evento_categoria ON evento_data.id = evento_categoria.id_evento) INNER JOIN categoria ON evento_categoria.id_categoria = categoria.id) WHERE categoria.id = %s;"
+            cursor.execute(sql_command, (id, ))
+            records = cursor.fetchall()
+            cursor.close()
+        conn.close()
+    else:
+        openConnection()
+        cursor = conn.cursor()
+        sql_command = "SELECT evento_data.id, evento_data.nombre, evento_data.precio, evento_data.path_foto_p, categoria.nombre FROM ((evento_data INNER JOIN evento_categoria ON evento_data.id = evento_categoria.id_evento) INNER JOIN categoria ON evento_categoria.id_categoria = categoria.id);"
+        cursor.execute(sql_command, )
+        records = cursor.fetchall()
+        cursor.close()
+        conn.close()
     if "sesion" in session:
-        return template.render(css = css,logoConectados=logoConectados,img1=img1, img2=img2, img3=img3, img4=img4,icono=icono)
+        return template.render(css = css,logoConectados=logoConectados,records = records)
     else:
         return redirect("/inicioSesion")
 

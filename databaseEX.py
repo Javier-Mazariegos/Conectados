@@ -1,7 +1,5 @@
 import sys, os
 import psycopg2
-import numpy as np
-import infoSQL as creds
 conn = ""
 def openConnection():# Set up a connection to the postgres server.
     global conn
@@ -75,6 +73,7 @@ sql_command = "SELECT evento_data.id, evento_data.nombre, evento_data.precio, ev
 cursor.execute(sql_command, (id, ))
 records = cursor.fetchall()
 for row in records:
+    id = row[0]
     for i in row:
         print(i)
 cursor.close()
