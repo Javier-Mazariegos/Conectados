@@ -41,104 +41,20 @@
             <h2>Experiencias</h2>
             <div class="contenedor-cards">
                 <!-- for del diccionario que tenga toda la info de cada evento.-->
+                {% for row in records %}
                 <div class="card">
-                    <img src="{{img1}}">
+                    <img src="{{row[3]}}">
                     <div class="info">
-                        <p class="categoria">concierto</p><!--ROW[4]-->
-                        <p class="titulo">Actividad 1</p>
-                        <p class="precio">Q1,200 por persona</p>
+                        <p class="categoria">{{row[4]}}</p><!--ROW[4]-->
+                        <p class="titulo">{{row[1]}}</p>
+                        <p class="precio">{{row[2]}}</p>
+                        <a href="informacion_actividad/{{row[0]}}">Mas informacion...</a>
                         <!-- HAY QUE HACER UN FORM QUE ENVIE LA INFO DEL EVENTO que se manda el id del evento-->
                     </div>
                 </div>
+                {% endfor %}
                 <!-- se termina el for-->
-                <div class="card">
-                    <img src="{{img2}}">
-                    <div class="info">
-                        <p class="categoria">streaming</p>
-                        <p class="titulo">Actividad 2</p>
-                        <p class="precio">Q300 por persona</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="{{img3}}">
-                    <div class="info">
-                        <p class="categoria">Cafe</p>
-                        <p class="titulo">Actividad 3</p>
-                        <p class="precio">Q400 por persona</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="{{img4}}">
-                    <div class="info">
-                        <p class="categoria">Viajes</p>
-                        <p class="titulo">Actividad 4</p>
-                        <p class="precio">Q500 por persona</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="{{img1}}">
-                    <div class="info">
-                        <p class="categoria">Carreras</p>
-                        <p class="titulo">Actividad 5</p>
-                        <p class="precio">Q1,200 por persona</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="{{img2}}">
-                    <div class="info">
-                        <p class="categoria">Realidad Virtual</p>
-                        <p class="titulo">Actividad 6</p>
-                        <p class="precio">Q300 por persona</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="{{img3}}">
-                    <div class="info">
-                        <p class="categoria">Programacion</p>
-                        <p class="titulo">Actividad 7</p>
-                        <p class="precio">Q400 por persona</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="{{img4}}">
-                    <div class="info">
-                        <p class="categoria">Tecnologia</p>
-                        <p class="titulo">Actividad 8</p>
-                        <p class="precio">Q500 por persona</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="{{img1}}">
-                    <div class="info">
-                        <p class="categoria">Videojuegos</p>
-                        <p class="titulo">Actividad 9</p>
-                        <p class="precio">Q1,200 por persona</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="{{img2}}">
-                    <div class="info">
-                        <p class="categoria">Coina</p>
-                        <p class="titulo">Actividad 10</p>
-                        <p class="precio">Q300 por persona</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="{{img3}}">
-                    <div class="info">
-                        <p class="categoria">Museo</p>
-                        <p class="titulo">Actividad 11</p>
-                        <p class="precio">Q400 por persona</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="{{img4}}">
-                    <div class="info">
-                        <p class="categoria">Concierto</p>
-                        <p class="titulo">Actividad 12</p>
-                        <p class="precio">Q500 por persona</p>
-                    </div>
-                </div>
+               
             </div><!-- este div se queda-->
         </section>
     </main>
