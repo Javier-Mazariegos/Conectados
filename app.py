@@ -52,7 +52,7 @@ def index():
             cursor.execute(sql_command, (id, ))
             records = cursor.fetchall()
             cursor.close()
-        conn.close()
+            conn.close()
     else:
         openConnection()
         cursor = conn.cursor()
@@ -81,6 +81,7 @@ def regristro():
         nombre = request.form["nombre"] #nombre_usuario
         email = request.form["correo"] #correo
         clave = request.form["clave"] #contrasena
+        id_validador = 0
         if 'file' not in request.files:
             print("No se seleccionó ningun archivo 1")
             return template.render(css=css,normalizacioncss=normalizacioncss,logo=logo,scriptregistro=scriptregistro,mensaje="No seleccionó ninguna imagen")
@@ -92,10 +93,33 @@ def regristro():
             print("Archivo seleccionado")
             filename = nombre + "_" + secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            #query de insert en user_data toda la info y select del id del usuario INSERT
-            #validacion de que el correo no exista ya. SELECT
-            session['sesion'] = "id"
-            return redirect("/")        
+            openConnection()
+            cursor = conn.cursor()
+            sql_command = "SELECT id FROM public.user_data WHERE  public.user_data.correo = %s;"
+            cursor.execute(sql_command, (email, ))
+            records = cursor.fetchall()
+            for row in records:
+                id_validador = row[0]
+            cursor.close()
+            conn.close()
+            if id_validador == 0:
+                #INSERT DE INFORMACION DE USUARIO LUEGO DE UN REGISTRO
+                openConnection()
+                cursor = conn.cursor()
+                sql_command = "INSERT INTO public.user_data (correo, contrasena, nombre_usuario, pais, path_foto)VALUES (%s, %s, %s, %s, %s);"
+                cursor.execute(sql_command, (email,clave,nombre,pais, filename, ))
+                conn.commit()
+                #SELECT DEL ID DEL USUARIO CREADO
+                sql_command = "SELECT id FROM public.user_data ORDER BY user_data.id DESC LIMIT 1;"
+                cursor.execute(sql_command, )
+                records = cursor.fetchall()
+                for row in records:
+                    session['sesion'] = row[0]
+                cursor.close()
+                conn.close()
+                return redirect("/") 
+            else:
+                return template.render(css=css,normalizacioncss=normalizacioncss,logo=logo,scriptregistro=scriptregistro,mensaje="¡Correo ya utilizado!")       
         return template.render(css=css,normalizacioncss=normalizacioncss,logo=logo,scriptregistro=scriptregistro,mensaje="¡Debes llenar todos los campos!")
     return template.render(css=css,normalizacioncss=normalizacioncss,logo=logo,scriptregistro=scriptregistro,mensaje="")
 
