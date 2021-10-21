@@ -28,6 +28,7 @@
 	<div class="container">
      	<div class="row d-flex justify-content-center">
             <div class="col-md-10 mt-5 pt-5">
+				{% for row in records %}
              	<div class="row z-depth-3">
                  	<div class="col-sm-4 bg-info rounded-left">
         		        <div class="card-block text-center text-white">
@@ -41,15 +42,15 @@
                    		<div class="row">
                         	<div class="col-sm-6">
                             	<p class="font-weight-bold">Correo:</p>
-                           		<h6 class=" text-muted">ejemplo@gmail.com</h6>
+                           		<h6 class=" text-muted">{{row[0]}}</h6>
                         	</div>
                         	<div class="col-sm-6">
                             	<p class="font-weight-bold">Nombre de usuario:</p>
-                           		<h6 class="text-muted">Javier</h6>
+                           		<h6 class="text-muted">{{row[1]}}</h6>
                         	</div>
                         	<div class="col-sm-6">
                            		<p class="font-weight-bold">Region</p>
-                          	  	<h6 class="text-muted">Guatemala</h6>
+                          	  	<h6 class="text-muted">{{row[2]}}</h6>
                         	</div>
                     	</div>
                 	   	<hr class="bg-primary">
@@ -61,6 +62,7 @@
 						</div>
               		</div>
              	</div>
+				 {% endfor %}
             </div>
         </div>
 	</div>
