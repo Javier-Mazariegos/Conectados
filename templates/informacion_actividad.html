@@ -57,8 +57,8 @@
 							   
 							   <div class="row">
 								   <!--IF CON FLASK DE MOTRAR O NO, SI EL USUARIO YA ESTA REGISTRADO-->
-								   <form class="form-group col-sm-12 text-center" action="#">
-									   <input type="submit" class="btn btn-danger w-100" value="Registrarme"></input>
+								   <form class="form-group col-sm-12 text-center" action="#" method="POST">
+									   <input type="submit" class="btn btn-danger w-100" name = "Registrarme" value="Registrarme"></input>
 								   </form>
 							   </div>
 							   
@@ -112,9 +112,9 @@
                     	</div>
 						<!--se termina el for-->
 						<div class="row">
-							<form class="form-group text-center col-sm-12 d-flex" action="#"> <!--se manda el comentario-->
+							<form class="form-group text-center col-sm-12 d-flex" action="#" method="POST"> <!--se manda el comentario-->
 								<input type="text" class="form-control w-90 h-100" id="exampleFormControlInput1" placeholder="Escribir un comentario...">
-								<input type="submit" class="btn btn-danger w-10  h-100 mt-0" value="Enviar"></input>
+								<input type="submit" class="btn btn-danger w-10  h-100 mt-0" name="Comentar" value="Enviar"></input>
 							</form>	
 						</div>
 

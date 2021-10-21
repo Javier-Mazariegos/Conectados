@@ -283,19 +283,22 @@ def mis_actividades():
         conn.close()
     return template.render(css = css,logo=logo,creados=CREADOS, registrados = REGISTRADOS)
 
-@app.route('/informacion_actividad',methods=["GET","POST"], endpoint="informacion_actividad")#tengo que recibir el id del evento seleccionado. 
-def informacion_actividad():
+@app.route('/informacion_actividad/<idActividad>',methods=["GET","POST"], endpoint="informacion_actividad")#tengo que recibir el id del evento seleccionado. 
+def informacion_actividad(idActividad=None):
     css = url_for('static',filename="informacion_actividad.css")
     template = env.get_template('informacion_actividad.html')
     logo = url_for('static',filename="conectados.png")
     if (request.method == "POST"):
+        if request.form.get('Registrarme') == 'Registrarme':
+            return redirect("mis_actividades")
+        if request.form.get('Comentar') == 'Comentar':
+            pass
         #if es registro, entonces return redirect /mis actividades
         #else insert de comentario, pass
         #insert en evento registrado, o insert en comentarios del evento
-        pass
     openConnection()
     cursor = conn.cursor()
-    id = 2#ID DEL EVENTO QUE RECIBO
+    id = idActividad
     sql_command = "SELECT * FROM public.evento_data WHERE evento_data.id = %s;"
     cursor.execute(sql_command, (id, ))
     informacion = cursor.fetchall()
@@ -303,7 +306,7 @@ def informacion_actividad():
     conn.close()  
     openConnection()
     cursor = conn.cursor()
-    id = 2#IDE DEL EVENTO RECIBIDO
+    id = idActividad
     sql_command = "SELECT user_data.nombre_usuario, evento_comentarios.comentario FROM (user_data INNER JOIN evento_comentarios ON user_data.id = evento_comentarios.id_user) where evento_comentarios.id_evento = %s"
     cursor.execute(sql_command, (id, ))
     comentarios = cursor.fetchall()
