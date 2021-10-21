@@ -1,9 +1,18 @@
 from flask.helpers import _endpoint_from_view_func, url_for
-from flask import Flask, request, redirect, flash
+from flask import Flask, request, redirect, session
 from jinja2 import Template, Environment, FileSystemLoader
+from jinja2.environment import create_cache
 from werkzeug.utils import secure_filename
 import os
 from datetime import datetime
+import psycopg2
+conn = ""
+def openConnection():# Set up a connection to the postgres server.
+    global conn
+    conn = psycopg2.connect(host="localhost",
+                            database="demoConectados",
+                            user="postgres",
+                            password="CharleiAlvSql")
 
 UPLOAD_FOLDER = 'C:/Users/mepg1/Documents/GitHub/Conectados/images'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
@@ -12,6 +21,7 @@ File_loader = FileSystemLoader("templates")
 env = Environment(loader=File_loader)
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.secret_key = "contraseña"
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -19,19 +29,42 @@ def allowed_file(filename):
 
 @app.route('/',methods=["GET","POST"], endpoint="index")
 def index():
+    records = ""
     template = env.get_template('index.html')
-    icono = url_for('static',filename="hamburgesa.png")
     logoConectados = url_for('static',filename="conectados2.png")
     css = url_for('static',filename="styles.css")
-    img1 = url_for('static',filename="hacer1.jpg")
-    img2 = url_for('static',filename="hacer2.jpg")
-    img3 = url_for('static',filename="hacer3.jpg")
-    img4 = url_for('static',filename="hacer4.jpg")
-    #una query de select que devuelva las categorias, con nombre y id.
-    #una query de select donde vaya a todos los eventos creados y publicarlos. si la value == 0
-                #trayendo la info y id. y guardarlo en un dict, para mandarlo de nuevo. 
-    #se da return a info actividad, mandando el id en el return. #si ya estoy registrado, bandera de registrado
-    return template.render(css = css,logoConectados=logoConectados,img1=img1, img2=img2, img3=img3, img4=img4,icono=icono)
+    if (request.method == "POST"):
+        #var de el id de la categoria
+        cate = 0
+        if cate == 0:
+            openConnection()
+            cursor = conn.cursor()
+            sql_command = "SELECT evento_data.id, evento_data.nombre, evento_data.precio, evento_data.path_foto_p, categoria.nombre FROM ((evento_data INNER JOIN evento_categoria ON evento_data.id = evento_categoria.id_evento) INNER JOIN categoria ON evento_categoria.id_categoria = categoria.id);"
+            cursor.execute(sql_command, )
+            records = cursor.fetchall()
+            cursor.close()
+            conn.close()
+        else:
+            openConnection()
+            cursor = conn.cursor()
+            id = cate
+            sql_command = "SELECT evento_data.id, evento_data.nombre, evento_data.precio, evento_data.path_foto_p, categoria.nombre FROM ((evento_data INNER JOIN evento_categoria ON evento_data.id = evento_categoria.id_evento) INNER JOIN categoria ON evento_categoria.id_categoria = categoria.id) WHERE categoria.id = %s;"
+            cursor.execute(sql_command, (id, ))
+            records = cursor.fetchall()
+            cursor.close()
+        conn.close()
+    else:
+        openConnection()
+        cursor = conn.cursor()
+        sql_command = "SELECT evento_data.id, evento_data.nombre, evento_data.precio, evento_data.path_foto_p, categoria.nombre FROM ((evento_data INNER JOIN evento_categoria ON evento_data.id = evento_categoria.id_evento) INNER JOIN categoria ON evento_categoria.id_categoria = categoria.id);"
+        cursor.execute(sql_command, )
+        records = cursor.fetchall()
+        cursor.close()
+        conn.close()
+    if "sesion" in session:
+        return template.render(css = css,logoConectados=logoConectados,records = records)
+    else:
+        return redirect("/inicioSesion")
 
 @app.route('/registro',methods=["GET","POST"], endpoint="registro")
 def regristro():
@@ -44,7 +77,7 @@ def regristro():
     #Dentro de request 'POST'
     if(request.method == 'POST'):
         #Extracción de los datos del form
-        #pais = request.form.get["paises"]
+        pais = request.form["Pais"] #pais
         nombre = request.form["nombre"] #nombre_usuario
         email = request.form["correo"] #correo
         clave = request.form["clave"] #contrasena
@@ -61,6 +94,7 @@ def regristro():
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             #query de insert en user_data toda la info y select del id del usuario INSERT
             #validacion de que el correo no exista ya. SELECT
+            session['sesion'] = "id"
             return redirect("/")        
         return template.render(css=css,normalizacioncss=normalizacioncss,logo=logo,scriptregistro=scriptregistro,mensaje="¡Debes llenar todos los campos!")
     return template.render(css=css,normalizacioncss=normalizacioncss,logo=logo,scriptregistro=scriptregistro,mensaje="")
@@ -78,6 +112,7 @@ def inicioSesion():
         if email == "" or clave == "":
             return template.render(css=css,normalizacioncss=normalizacioncss,logo=logo,mensaje="¡Debes llenar todos los campos!")
         #validar si correo existe y si sí, obtener el id de usuario. SELECT
+        session['sesion'] = "id"
         return redirect("/")
     return template.render(css=css,normalizacioncss=normalizacioncss,logo=logo,mensaje="")
 
@@ -145,6 +180,8 @@ def cuenta():
     css = url_for('static',filename="cuenta.css")
     template = env.get_template('cuenta.html')
     logo = url_for('static',filename="conectados.png")
+    if (request.method == "DELETE"):
+        pass
     #un if de si la variable de loggin tiene algo, y si sí, retornar la info del usuario con respecto al id. SELECT
     #Si no hay algo, enviar a /iniciosesion
     return template.render(css = css, logo = logo)
@@ -158,6 +195,8 @@ def mis_actividades():
     img2 = url_for('static',filename="hacer2.jpg")
     img3 = url_for('static',filename="hacer3.jpg")
     img4 = url_for('static',filename="hacer4.jpg")
+    if (request.method == "POST"):
+        pass
     #query que devuelva las actividades creadas por el usuario,
     #querye que devueva las actividades futurias del usuario, registradas. 
     #enviar a NUEVA ACTIVIDAD
@@ -189,6 +228,8 @@ def editar_actividad():
     img2 = url_for('static',filename="hacer2.jpg")
     img3 = url_for('static',filename="hacer3.jpg")
     img4 = url_for('static',filename="hacer4.jpg")
+    if (request.method == "POST"):
+        pass
     #RECIBIR EL ID DEL EVENTO
     #si le da a eliminar, hacer una función que le mande correo a todos los usuarios que estan registrados.
     #si le da eliminar comentario, se vuelve a mandar el ID para mantener el ciclo. 
