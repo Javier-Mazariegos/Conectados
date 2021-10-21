@@ -50,6 +50,7 @@
                             <option value="3">Categoria 3</option>
                         </select>
                     </div>
+
                     <div class="formulario-row fila4">
                         <div class="formulario-grupo row1">
                             <label for="fecha">Fecha de la actividad</label>
@@ -60,22 +61,30 @@
                             <input id="precio" name = "precio" class="precio" type="text" required>
                         </div>
                     </div>
-                    <div>
-                        <h4>Foto de portada de Actividad:</h4>
-                        <input type=file name=file1>
+
+                <div class="contenedor-imagenes">
+                    <div class="profile-pic-div1">
+                        <img id="photo1">
+                        <input type=file name=file1 id="file1">
+                        <label for="file1" name="file1" id="uploadbtn1">Foto de portada de Actividad:</label>
                     </div>
-                    <div>
-                        <h4>Foto 2 de Actividad:</h4>
-                        <input type=file name=file2>
+                    <div class="profile-pic-div2">
+                        <img id="photo2">
+                        <input type=file name=file2 id="file2">
+                        <label for="file2" name="file2" id="uploadbtn2">Foto 2 de Actividad:</label>
                     </div>
-                    <div>
-                        <h4>Foto 3 de Actividad:</h4>
-                        <input type=file name=file3>
+                    <div class="profile-pic-div3">
+                        <img id="photo3">
+                        <input type=file name=file3 id="file3">
+                        <label for="file3" name="file3" id="uploadbtn3">Foto 3 de Actividad:</label>
                     </div>
-                    <div>
-                        <h4>Foto 4 de Actividad:</h4>
-                        <input type=file name=file4>
+                    <div class="profile-pic-div4">
+                        <img id="photo4">
+                        <input type=file name=file4 id="file4">
+                        <label for="file4" name="file4" id="uploadbtn4">Foto 4 de Actividad:</label>
                     </div>
+                </div>
+
                     <input type="submit" value="Enviar" id="enviar">
                  </div>
             </form>
