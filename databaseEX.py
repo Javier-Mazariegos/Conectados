@@ -135,6 +135,12 @@ print('----------------')
 #sql_command = "INSERT INTO public.user_data (correo, contrasena, nombre_usuario, pais, path_foto)VALUES (%s, %s, %s, %s, %s);"
 #cursor.execute(sql_command, (correo,clave,nombre_usuario,pais, path_foto, ))
 #conn.commit()
+#SELECT DEL ID DEL USUARIO CREADO
+#sql_command = "SELECT id FROM public.user_data ORDER BY user_data.id DESC LIMIT 1;"
+#cursor.execute(sql_command, )
+#records = cursor.fetchall()
+#for row in records:
+#    id_evento = row[0]
 #cursor.close()
 #conn.close()
 #--------------------------
