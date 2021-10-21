@@ -276,7 +276,7 @@ def mis_actividades():
         #MIS EVENTOS REGISTRADOS
         openConnection()
         cursor = conn.cursor()
-        sql_command = "SELECT evento_data.id, evento_data.nombre, evento_data.precio, evento_data.path_foto_p, categoria.nombre FROM ((evento_data INNER JOIN evento_categoria ON evento_data.id = evento_categoria.id_evento) INNER JOIN categoria ON evento_categoria.id_categoria = categoria.id) WHERE evento_data.id IN %s;"
+        sql_command = "SELECT evento_data.id, evento_data.nombre, evento_data.precio, evento_data.path_foto_p, evento_data.fecha, evento_data.hora, categoria.nombre FROM ((evento_data INNER JOIN evento_categoria ON evento_data.id = evento_categoria.id_evento) INNER JOIN categoria ON evento_categoria.id_categoria = categoria.id) WHERE evento_data.id IN %s;"
         cursor.execute(sql_command, (ids, ))
         REGISTRADOS = cursor.fetchall()
         cursor.close()
