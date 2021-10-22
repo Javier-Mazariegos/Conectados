@@ -179,6 +179,27 @@ def nueva_actividad():
             filename = nombre + "_fotoPortada_" + secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         #INSERT en la tabla de eventos creados.
+        openConnection()
+        cursor = conn.cursor()
+        sql_command = "INSERT INTO public.evento_data(nombre, description, fecha, hora, precio, path_foto_p)VALUES (%s, %s, %s, %s, %s, %s);"
+        cursor.execute(sql_command, (nombre, descripcion, fecha, hora, precio, filename, ))
+        conn.commit()
+        #SELECT DEL ID DEL EVENTO CREADO
+        sql_command = "SELECT id FROM public.evento_data ORDER BY evento_data.id DESC LIMIT 1;"
+        cursor.execute(sql_command, )
+        records = cursor.fetchall()
+        id_evento = ""
+        for row in records:
+            id_evento = row[0]
+        #--- otro insert
+        sql_command = "INSERT INTO public.evento_categoria(id_evento, id_categoria)VALUES(%s, %s);"
+        cursor.execute(sql_command, (id_evento, categoria, ))
+        id_user = session["sesion"]
+        sql_command = "INSERT INTO public.usuario_evento_creado(id_user, id_evento)VALUES (%s, %s);"
+        cursor.execute(sql_command, (id_user, id_evento, ))
+        conn.commit()
+        cursor.close()
+        conn.close()
         return redirect("/mis_actividades")
     return template.render(css=css,normalizacioncss=normalizacioncss,logo=logo,scriptNuevaActividad=scriptNuevaActividad)
 
@@ -265,12 +286,27 @@ def informacion_actividad(idActividad=None):
     logo = url_for('static',filename="conectados.png")
     if (request.method == "POST"):
         if request.form.get('Registrarme') == 'Registrarme':
+            openConnection()
+            cursor = conn.cursor()
+            id_user = session["sesion"]
+            id_evento = idActividad
+            sql_command = "INSERT INTO public.usuario_evento_registrado(id_user, id_evento) VALUES (%s, %s);"
+            cursor.execute(sql_command, (id_user, id_evento, ))
+            conn.commit()
+            cursor.close()
+            conn.close()
             return redirect("mis_actividades")
         if request.form.get('Comentar') == 'Comentar':
-            pass
-        #if es registro, entonces return redirect /mis actividades
-        #else insert de comentario, pass
-        #insert en evento registrado, o insert en comentarios del evento
+            openConnection()
+            cursor = conn.cursor()
+            id_evento = idActividad
+            id = session["sesion"]
+            #comentario = 
+            sql_command = "INSERT INTO public.evento_comentarios(id_evento, id_user, comentario)VALUES (%s, %s, %s);"
+            cursor.execute(sql_command, (id_evento, id, comentario, ))
+            conn.commit()
+            cursor.close()
+            conn.close()
     openConnection()
     cursor = conn.cursor()
     id = idActividad
@@ -289,7 +325,7 @@ def informacion_actividad(idActividad=None):
     conn.close()
     return template.render(css = css, logo = logo,informacion = informacion, comentarios = comentarios)
 
-@app.route('/editar_actividad',methods=["GET","POST"], endpoint="editar_actividad")
+@app.route('/editar_actividad',methods=["GET","POST"], endpoint="editar_actividad") #idActividad
 def editar_actividad():
     css = url_for('static',filename="editar_actividad.css")
     template = env.get_template('editar_actividad.html')
@@ -300,10 +336,15 @@ def editar_actividad():
     img4 = url_for('static',filename="hacer4.jpg")
     if (request.method == "POST"):
         pass
-    #RECIBIR EL ID DEL EVENTO
-    #si le da a eliminar, hacer una función que le mande correo a todos los usuarios que estan registrados.
-    #si le da eliminar comentario, se vuelve a mandar el ID para mantener el ciclo. 
-    return template.render(css = css, logo = logo,img1=img1, img2=img2, img3=img3, img4=img4)
+    openConnection()
+    cursor = conn.cursor()
+    id = idActividad
+    sql_command = "SELECT * FROM public.evento_data WHERE evento_data.id = %s;"
+    cursor.execute(sql_command, (id, ))
+    informacion = cursor.fetchall()
+    cursor.close()
+    conn.close()
+    return template.render(css = css, logo = logo,informacion = informacion)
 
 
 

@@ -165,7 +165,7 @@ print('----------------')
 #INSERT informacion de evento
 #openConnection()
 #cursor = conn.cursor()
-#nombre = "Como hacer query's desde PostgresSQL"
+#ombre = "Como hacer query's desde PostgresSQL"
 #description = "Juango a un joven ingeniero de Computer Science, y aprende de como hacer diferentes varias querys para diferente tipos de relaciones."
 #fecha = "2021-11-27"
 #hora = "15:00:00"
@@ -174,7 +174,7 @@ print('----------------')
 #categoria = 3
 #sql_command = "INSERT INTO public.evento_data(nombre, description, fecha, hora, precio, path_foto_p)VALUES (%s, %s, %s, %s, %s, %s);"
 #cursor.execute(sql_command, (nombre, description, fecha, hora, precio, path_foto_p, ))
-#conn.commit()
+#onn.commit()
 #SELECT DEL ID DEL EVENTO CREADO
 #sql_command = "SELECT id FROM public.evento_data ORDER BY evento_data.id DESC LIMIT 1;"
 #cursor.execute(sql_command, )
