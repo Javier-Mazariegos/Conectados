@@ -40,7 +40,7 @@
 								
 							   <div class="row">
 								   <div class="col-sm-6 card-block text-center text-white">
-									   <img src="static/{{row[6]}}">
+									   <img src="/static/{{row[6]}}">
 								   </div>
 								   <div class=" col-sm-6 card-block text-center text-white">
 									   <img src="">
@@ -57,9 +57,9 @@
 							   </div>
 
                                <div class="row">
-                                <form class="form-group col-sm-12 text-center" action="#" post="DELETE">
+                                <form class="form-group col-sm-12 text-center" action="#" method="POST">
 									<input type="hidden" value="{{row[0]}}" name="idevento"></input>
-                                    <input type="submit" class="btn btn-danger w-100" name="eliminarActividad" value="Eliminar actividad"></input>
+                                    <input type="submit" class="btn btn-danger w-100" name="eliminar" value="eliminar"></input>
                                 </form>
                             </div>
                             
@@ -102,7 +102,7 @@
                         	</div>
                             <form class="form-group text-center col-sm-2" action="#" method="POST">
 								<input type="hidden" name="idcomentario" value="{{row[0]}}"></input>
-								<input type="submit" class="btn btn-danger" name="Eliminar" value="Eliminar"></input>
+								<input type="submit" class="btn btn-danger" name="Borrar" value="Borrar"></input>
 							</form>	
 							{% endfor %}
                     	</div>

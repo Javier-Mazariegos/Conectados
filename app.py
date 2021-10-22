@@ -226,6 +226,39 @@ def cuenta():
     id = ""
     if (request.method == "POST"):
         #DELETE
+        #delete en usuario_evento_registrado
+        openConnection()
+        cursor = conn.cursor()
+        id = session["sesion"]
+        sql_command = "DELETE FROM public.usuario_evento_registrado WHERE usuario_evento_registrado.id_user = %s"
+        cursor.execute(sql_command, (id, ))
+        conn.commit()
+        cursor.close()
+        conn.close()
+        #delete en usuario_evento_creado
+        openConnection()
+        cursor = conn.cursor()
+        sql_command = "DELETE FROM public.usuario_evento_creado WHERE usuario_evento_creado.id_user = %s"
+        cursor.execute(sql_command, (id, ))
+        conn.commit()
+        cursor.close()
+        conn.close()
+        #delete en evento_comentarios
+        openConnection()
+        cursor = conn.cursor()
+        sql_command = "DELETE FROM public.evento_comentarios WHERE evento_comentarios.id_user = %s"
+        cursor.execute(sql_command, (id, ))
+        conn.commit()
+        cursor.close()
+        conn.close()
+        #delete en evento_data
+        openConnection()
+        cursor = conn.cursor()
+        sql_command = "DELETE FROM public.user_data WHERE user_data.id = %s"
+        cursor.execute(sql_command, (id, ))
+        conn.commit()
+        cursor.close()
+        conn.close()
         return redirect("/inicioSesion")
     else:
         openConnection()
@@ -258,49 +291,49 @@ def mis_actividades():
         cursor.execute(sql_command, (idActividad, ))
         conn.commit()
         cursor.close()
-        conn.close()   
-    else:
-        #ID DE EVENTOS CREADOS:
-        openConnection()
-        cursor = conn.cursor()
-        id = session["sesion"]
-        ids = []
-        sql_command = "SELECT id_evento FROM usuario_evento_creado where id_user = %s"
-        cursor.execute(sql_command, (id, ))
-        records = cursor.fetchall()
-        for row in records:
-            ids.append(row[0])
-        cursor.close()
-        conn.close()
+        conn.close() 
+    #ID DE EVENTOS CREADOS:
+    openConnection()
+    cursor = conn.cursor()
+    id = session["sesion"]
+    ids = []
+    sql_command = "SELECT id_evento FROM usuario_evento_creado where id_user = %s"
+    cursor.execute(sql_command, (id, ))
+    records = cursor.fetchall()
+    for row in records:
+        ids.append(row[0])
+    cursor.close()
+    conn.close()
+    ids = tuple(ids)
+    #MIS EVENTOS CREADOS:
+    openConnection()
+    cursor = conn.cursor()
+    sql_command = "SELECT evento_data.id, evento_data.nombre, evento_data.precio, evento_data.path_foto_p, categoria.nombre FROM ((evento_data INNER JOIN evento_categoria ON evento_data.id = evento_categoria.id_evento) INNER JOIN categoria ON evento_categoria.id_categoria = categoria.id) WHERE evento_data.id IN %s;"
+    cursor.execute(sql_command, (ids, ))
+    CREADOS = cursor.fetchall()
+    cursor.close()
+    conn.close()
+    #MIS EVENTOS REGISTRADOS IDS
+    openConnection()
+    cursor = conn.cursor()
+    id = session["sesion"]
+    ids = []
+    sql_command = "SELECT id_evento FROM usuario_evento_registrado where id_user = %s"
+    cursor.execute(sql_command, (id, ))
+    records = cursor.fetchall()
+    for row in records:
+        ids.append(row[0])
+    cursor.close()
+    conn.close()
+    #MIS EVENTOS REGISTRADOS
+    REGISTRADOS2 = []
+    if len(ids) != 0:
         ids = tuple(ids)
-        #MIS EVENTOS CREADOS:
-        openConnection()
-        cursor = conn.cursor()
-        sql_command = "SELECT evento_data.id, evento_data.nombre, evento_data.precio, evento_data.path_foto_p, categoria.nombre FROM ((evento_data INNER JOIN evento_categoria ON evento_data.id = evento_categoria.id_evento) INNER JOIN categoria ON evento_categoria.id_categoria = categoria.id) WHERE evento_data.id IN %s;"
-        cursor.execute(sql_command, (ids, ))
-        CREADOS = cursor.fetchall()
-        cursor.close()
-        conn.close()
-        #MIS EVENTOS REGISTRADOS IDS
-        openConnection()
-        cursor = conn.cursor()
-        id = session["sesion"]
-        ids = []
-        sql_command = "SELECT id_evento FROM usuario_evento_registrado where id_user = %s"
-        cursor.execute(sql_command, (id, ))
-        records = cursor.fetchall()
-        for row in records:
-            ids.append(row[0])
-        cursor.close()
-        conn.close()
-        ids = tuple(ids)
-        #MIS EVENTOS REGISTRADOS
         openConnection()
         cursor = conn.cursor()
         sql_command = "SELECT evento_data.id, evento_data.nombre, evento_data.precio, evento_data.path_foto_p, evento_data.fecha, evento_data.hora, categoria.nombre FROM ((evento_data INNER JOIN evento_categoria ON evento_data.id = evento_categoria.id_evento) INNER JOIN categoria ON evento_categoria.id_categoria = categoria.id) WHERE evento_data.id IN %s;"
         cursor.execute(sql_command, (ids, ))
         REGISTRADOS = cursor.fetchall()
-        REGISTRADOS2 = []
         currentTime = datetime.now()
         currentTime = (currentTime.year * 10000000000) + (currentTime.month * 100000000) +  (currentTime.day * 1000000)
         for row in REGISTRADOS:
@@ -353,8 +386,10 @@ def mis_actividades():
                 conn.close()
             else:
                 REGISTRADOS2.append(row)
-        cursor.close()
-        conn.close()
+    else:
+        pass    
+    cursor.close()
+    conn.close()
     return template.render(css = css,logo=logo,creados=CREADOS, registrados = REGISTRADOS2)
 
 @app.route('/informacion_actividad/<idActividad>',methods=["GET","POST"], endpoint="informacion_actividad")#tengo que recibir el id del evento seleccionado. 
@@ -416,11 +451,12 @@ def editar_actividad(idActividad=None):
     img3 = url_for('static',filename="hacer3.jpg")
     img4 = url_for('static',filename="hacer4.jpg")
     if (request.method == "POST"):
-        if request.form.get('eliminarActividad') == 'eliminarActividad':
+        if request.form.get('eliminar') == 'eliminar':
             #DELETE idActividad
             #delete en usuario_evento_registrado
             openConnection()
             cursor = conn.cursor()
+            print(idActividad)
             sql_command = "DELETE FROM public.usuario_evento_registrado WHERE usuario_evento_registrado.id_evento = %s"
             cursor.execute(sql_command, (idActividad, ))
             conn.commit()
@@ -458,12 +494,12 @@ def editar_actividad(idActividad=None):
             conn.commit()
             cursor.close()
             conn.close()
-        if request.form.get('eliminarComentario') == 'eliminarComentario':
+        if request.form.get('Borrar') == 'Borrar':
             #DELETE idComentario
             idComentario = request.form["idcomentario"]
             openConnection()
             cursor = conn.cursor()
-            sql_command = "DELETE FROM public.evento_comentarios WHERE evento_comentario.id = %s"
+            sql_command = "DELETE FROM public.evento_comentarios WHERE evento_comentarios.id = %s"
             cursor.execute(sql_command, (idComentario, ))
             conn.commit()
             cursor.close()
