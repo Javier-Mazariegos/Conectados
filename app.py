@@ -203,7 +203,7 @@ def nueva_actividad():
         return redirect("/mis_actividades")
     return template.render(css=css,normalizacioncss=normalizacioncss,logo=logo,scriptNuevaActividad=scriptNuevaActividad)
 
-@app.route('/cuenta',methods=["GET","POST"], endpoint="cuenta")
+@app.route('/cuenta',methods=["GET","POST"], endpoint="cuenta")#hay un delete/ eliminar cuenta
 def cuenta():
     css = url_for('static',filename="cuenta.css")
     template = env.get_template('cuenta.html')
@@ -225,7 +225,7 @@ def cuenta():
         else:
             return redirect("/inicioSesion")
 
-@app.route('/mis_actividades',methods=["GET","POST"], endpoint="mis_actividades")
+@app.route('/mis_actividades',methods=["GET","POST"], endpoint="mis_actividades")#hay DELETE/ evento registrado por boton. / evento por pasar fecha
 def mis_actividades():
     template = env.get_template('mis_actividades.html')
     logo = url_for('static',filename="conectados.png")
@@ -233,7 +233,7 @@ def mis_actividades():
     CREADOS = ""
     REGISTRADOS = ""
     if (request.method == "DELETE"):
-        pass#eliminar cuentas futuras
+        pass#por boton de eliminar evento registrado
     else:
         #ID DE EVENTOS CREADOS:
         openConnection()
@@ -275,6 +275,11 @@ def mis_actividades():
         sql_command = "SELECT evento_data.id, evento_data.nombre, evento_data.precio, evento_data.path_foto_p, evento_data.fecha, evento_data.hora, categoria.nombre FROM ((evento_data INNER JOIN evento_categoria ON evento_data.id = evento_categoria.id_evento) INNER JOIN categoria ON evento_categoria.id_categoria = categoria.id) WHERE evento_data.id IN %s;"
         cursor.execute(sql_command, (ids, ))
         REGISTRADOS = cursor.fetchall()
+        #datetime para ver si el evento se guarad o no. 
+        #recorrer el array y 
+        #for que entre a REGISTRADOS, row in regist
+        #row[4] obtienes la fecha. y validad que esa fecha no se haya pasado por 30 días.
+        # si esta en rango de fecha aceptable, en otra variable guardas row. REGISTRADOS2.append(row)
         cursor.close()
         conn.close()
     return template.render(css = css,logo=logo,creados=CREADOS, registrados = REGISTRADOS)
@@ -325,7 +330,7 @@ def informacion_actividad(idActividad=None):
     conn.close()
     return template.render(css = css, logo = logo,informacion = informacion, comentarios = comentarios)
 
-@app.route('/editar_actividad/<idActividad>',methods=["GET","POST"], endpoint="editar_actividad") #idActividad
+@app.route('/editar_actividad/<idActividad>',methods=["GET","POST"], endpoint="editar_actividad") #idActividad/HAY DELETE/ Comentario y Evento
 def editar_actividad(idActividad=None):
     css = url_for('static',filename="editar_actividad.css")
     template = env.get_template('editar_actividad.html')
@@ -335,6 +340,7 @@ def editar_actividad(idActividad=None):
     img3 = url_for('static',filename="hacer3.jpg")
     img4 = url_for('static',filename="hacer4.jpg")
     if (request.method == "DELETE"):
+        #validar si es comentario o evento el DELETE
         pass
     openConnection()
     cursor = conn.cursor()
@@ -347,7 +353,7 @@ def editar_actividad(idActividad=None):
     openConnection()
     cursor = conn.cursor()
     id = idActividad
-    sql_command = "SELECT user_data.nombre_usuario, evento_comentarios.comentario FROM (user_data INNER JOIN evento_comentarios ON user_data.id = evento_comentarios.id_user) where evento_comentarios.id_evento = %s"
+    sql_command = "SELECT evento_comentarios.id, user_data.nombre_usuario, evento_comentarios.comentario FROM (user_data INNER JOIN evento_comentarios ON user_data.id = evento_comentarios.id_user) where evento_comentarios.id_evento = %s"
     cursor.execute(sql_command, (id, ))
     comentarios = cursor.fetchall()
     cursor.close()
