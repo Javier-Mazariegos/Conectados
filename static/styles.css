@@ -99,7 +99,7 @@ form select{
     flex: 1;
     border: none;
     border-radius: 10px;
-    background-image: url("../static/lupa.png");
+   /* background-image: url("../static/lupa.png");*/
     background-repeat: no-repeat;
     background-position: calc(1% + 1rem) calc(1% + .8rem);
     padding-left: 5rem;
