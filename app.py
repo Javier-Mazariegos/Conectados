@@ -344,7 +344,16 @@ def editar_actividad(idActividad=None):
     informacion = cursor.fetchall()
     cursor.close()
     conn.close()
-    return template.render(css = css, logo = logo,informacion = informacion)
+    openConnection()
+    cursor = conn.cursor()
+    id = idActividad
+    sql_command = "SELECT user_data.nombre_usuario, evento_comentarios.comentario FROM (user_data INNER JOIN evento_comentarios ON user_data.id = evento_comentarios.id_user) where evento_comentarios.id_evento = %s"
+    cursor.execute(sql_command, (id, ))
+    comentarios = cursor.fetchall()
+    cursor.close()
+    conn.close()
+    
+    return template.render(css = css, logo = logo,informacion = informacion, comentarios = comentarios)
 
 
 
