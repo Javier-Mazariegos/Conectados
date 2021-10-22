@@ -243,7 +243,7 @@ def mis_actividades():
         cursor = conn.cursor()
         id = session["sesion"]
         ids = []
-        sql_command = "SELECT id_evento FROM usuario_evento_creado where id_user = $s"
+        sql_command = "SELECT id_evento FROM usuario_evento_creado where id_user = %s"
         cursor.execute(sql_command, (id, ))
         records = cursor.fetchall()
         for row in records:
@@ -264,7 +264,7 @@ def mis_actividades():
         cursor = conn.cursor()
         id = session["sesion"]
         ids = []
-        sql_command = "SELECT id_evento FROM usuario_evento_registrado where id_user = $s"
+        sql_command = "SELECT id_evento FROM usuario_evento_registrado where id_user = %s"
         cursor.execute(sql_command, (id, ))
         records = cursor.fetchall()
         for row in records:
@@ -279,11 +279,12 @@ def mis_actividades():
         cursor.execute(sql_command, (ids, ))
         REGISTRADOS = cursor.fetchall()
         currentTime = datetime.now()
-        currentTime = (currentTime.year * 10000000000) + (currentTime.month * 100000000) +  (currentTime.daty * 1000000)
-        for row in records:
+        currentTime = (currentTime.year * 10000000000) + (currentTime.month * 100000000) +  (currentTime.day * 1000000)
+        for row in REGISTRADOS:
+            print(row)
             fechaEvento = row[4]
             fechaEvento = datetime.strptime(fechaEvento,'%Y-%m-%d')
-            fechaEvento = (fechaEvento.year * 10000000000) + (fechaEvento.month * 100000000) +  (fechaEvento.daty * 1000000)
+            fechaEvento = (fechaEvento.year * 10000000000) + (fechaEvento.month * 100000000) +  (fechaEvento.day * 1000000)
             if (currentTime - fechaEvento == 15):
                 id_Actividad = row[0]
                 #DELETE por fecha
