@@ -150,7 +150,6 @@ def inicioSesion():
 
 @app.route('/nueva_actividad',methods=["GET","POST"], endpoint="nueva_actividad")
 def nueva_actividad():
-    contadorImagenes = 0
     css = url_for('static',filename="nueva_actividad_estilos.css")
     normalizacioncss = url_for('static',filename="normalize.css")
     logo = url_for('static',filename="conectados.png")
@@ -168,7 +167,7 @@ def nueva_actividad():
         else:
             hora = str(fecha_hora.hour) + ":" + str(fecha_hora.minute)
         precio = request.form["precio"]
-        if 'file1' not in request.files or 'file2' not in request.files or 'file3' not in request.files or 'file4' not in request.files:
+        if 'file1' not in request.files:
             print("No se seleccionó ningun archivo 1")
             return template.render(css=css,normalizacioncss=normalizacioncss,logo=logo,scriptNuevaActividad=scriptNuevaActividad)
         file = request.files['file1']
@@ -178,30 +177,6 @@ def nueva_actividad():
         if file and allowed_file(file.filename):
             print("Archivo seleccionado")
             filename = nombre + "_fotoPortada_" + secure_filename(file.filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        file = request.files['file2']
-        if file.filename == '':
-            pass
-        if file and allowed_file(file.filename):
-            contadorImagenes += 1
-            print("Archivo seleccionado")
-            filename = nombre + "_foto" + str(contadorImagenes) + "_" + secure_filename(file.filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        file = request.files['file3']
-        if file.filename == '':
-            pass
-        if file and allowed_file(file.filename):
-            contadorImagenes += 1
-            print("Archivo seleccionado")
-            filename = nombre + "_foto" + str(contadorImagenes) + "_" + secure_filename(file.filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        file = request.files['file4']
-        if file.filename == '':
-            pass
-        if file and allowed_file(file.filename):
-            contadorImagenes += 1
-            print("Archivo seleccionado")
-            filename = nombre + "_foto" + str(contadorImagenes) + "_" + secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         #INSERT en la tabla de eventos creados.
         return redirect("/mis_actividades")
