@@ -168,6 +168,13 @@ def nueva_actividad():
     template = env.get_template('nueva_actividad.html')
     scriptNuevaActividad = url_for('static',filename="nueva_actividad_scripts.js")
     #RECIBIR O RECORDAR TENER LE ID DEL USUARIO
+    openConnection()
+    cursor = conn.cursor()
+    sql_command = "SELECT * FROM public.categoria"
+    cursor.execute(sql_command, )
+    categorias = cursor.fetchall()
+    cursor.close()
+    conn.close()
     if request.method == "POST":
         nombre = request.form["nombre"]
         descripcion = request.form["descripcion"]
@@ -181,11 +188,11 @@ def nueva_actividad():
         precio = request.form["precio"]
         if 'file1' not in request.files:
             print("No se seleccionó ningun archivo 1")
-            return template.render(css=css,normalizacioncss=normalizacioncss,logo=logo,scriptNuevaActividad=scriptNuevaActividad)
+            return template.render(css=css,normalizacioncss=normalizacioncss,logo=logo,scriptNuevaActividad=scriptNuevaActividad, categorias = categorias)
         file = request.files['file1']
         if file.filename == '':
             print("No se seleccionó ningun archivo 2")
-            return template.render(css=css,normalizacioncss=normalizacioncss,logo=logo,scriptNuevaActividad=scriptNuevaActividad)
+            return template.render(css=css,normalizacioncss=normalizacioncss,logo=logo,scriptNuevaActividad=scriptNuevaActividad,categorias = categorias)
         if file and allowed_file(file.filename):
             print("Archivo seleccionado")
             filename = nombre + "_fotoPortada_" + secure_filename(file.filename)
@@ -213,7 +220,7 @@ def nueva_actividad():
         cursor.close()
         conn.close()
         return redirect("/mis_actividades")
-    return template.render(css=css,normalizacioncss=normalizacioncss,logo=logo,scriptNuevaActividad=scriptNuevaActividad)
+    return template.render(css=css,normalizacioncss=normalizacioncss,logo=logo,scriptNuevaActividad=scriptNuevaActividad,categorias = categorias)
 
 @app.route('/cuenta',methods=["GET","POST", "DELETE"], endpoint="cuenta")#hay un delete/ eliminar cuenta
 def cuenta():
