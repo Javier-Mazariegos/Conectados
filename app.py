@@ -29,6 +29,8 @@ def allowed_file(filename):
 
 @app.route('/',methods=["GET","POST"], endpoint="index")
 def index():
+    images = []
+    position =0
     records = ""
     template = env.get_template('index.html')
     logoConectados = url_for('static',filename="conectados2.png")
@@ -67,8 +69,11 @@ def index():
         records = cursor.fetchall()
         cursor.close()
         conn.close()
+    for row in records:
+        images[position] = url_for("images",filename=row[4])
+        position += 1
     if "sesion" in session:
-        return template.render(css = css,logoConectados=logoConectados,records = records, categorias = categorias)
+        return template.render(css = css,logoConectados=logoConectados,records = records, categorias = categorias, imagenes = images)
     else:
         return redirect("/inicioSesion")
 
