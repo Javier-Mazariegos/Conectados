@@ -203,7 +203,7 @@ def nueva_actividad():
         return redirect("/mis_actividades")
     return template.render(css=css,normalizacioncss=normalizacioncss,logo=logo,scriptNuevaActividad=scriptNuevaActividad)
 
-@app.route('/cuenta',methods=["GET","POST"], endpoint="cuenta")#hay un delete/ eliminar cuenta
+@app.route('/cuenta',methods=["GET","POST", "DELETE"], endpoint="cuenta")#hay un delete/ eliminar cuenta
 def cuenta():
     css = url_for('static',filename="cuenta.css")
     template = env.get_template('cuenta.html')
@@ -226,7 +226,7 @@ def cuenta():
         else:
             return redirect("/inicioSesion")
 
-@app.route('/mis_actividades',methods=["GET","POST"], endpoint="mis_actividades")#hay DELETE/ evento registrado por boton. / evento por pasar fecha
+@app.route('/mis_actividades',methods=["GET","POST","DELETE"], endpoint="mis_actividades")#hay DELETE/ evento registrado por boton. / evento por pasar fecha
 def mis_actividades():
     template = env.get_template('mis_actividades.html')
     logo = url_for('static',filename="conectados.png")
@@ -343,7 +343,7 @@ def informacion_actividad(idActividad=None):
     conn.close()
     return template.render(css = css, logo = logo,informacion = informacion, comentarios = comentarios)
 
-@app.route('/editar_actividad/<idActividad>',methods=["GET","POST"], endpoint="editar_actividad") #idActividad/HAY DELETE/ Comentario y Evento
+@app.route('/editar_actividad/<idActividad>',methods=["GET","POST","DELETE"], endpoint="editar_actividad") #idActividad/HAY DELETE/ Comentario y Evento
 def editar_actividad(idActividad=None):
     css = url_for('static',filename="editar_actividad.css")
     template = env.get_template('editar_actividad.html')
