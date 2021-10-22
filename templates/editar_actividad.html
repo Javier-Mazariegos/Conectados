@@ -59,7 +59,7 @@
                                <div class="row">
                                 <form class="form-group col-sm-12 text-center" action="#" post="DELETE">
 									<input type="hidden" value="{{row[0]}}" name="idevento"></input>
-                                    <input type="submit" class="btn btn-danger w-100" value="Eliminar actividad"></input>
+                                    <input type="submit" class="btn btn-danger w-100" name="eliminarActividad" value="Eliminar actividad"></input>
                                 </form>
                             </div>
                             
@@ -102,7 +102,7 @@
                         	</div>
                             <form class="form-group text-center col-sm-2" action="#">
 								<input type="hidden" name="idcomentario" value="{{row[0]}}"></input>
-								<input type="submit" class="btn btn-danger " value="Eliminar"></input>
+								<input type="submit" class="btn btn-danger" name="eliminarComentario" value="Eliminar"></input>
 							</form>	
 							{% endfor %}
                     	</div>

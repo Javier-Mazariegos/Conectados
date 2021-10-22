@@ -210,7 +210,8 @@ def cuenta():
     logo = url_for('static',filename="conectados.png")
     id = ""
     if (request.method == "DELETE"):
-        pass
+        #DELETE
+        return redirect("/inicioSesion")
     else:
         openConnection()
         cursor = conn.cursor()
@@ -233,7 +234,9 @@ def mis_actividades():
     CREADOS = ""
     REGISTRADOS = ""
     if (request.method == "DELETE"):
-        pass#por boton de eliminar evento registrado
+        if request.form.get('eliminar') == 'eliminar':
+            idActividad = request.form["id"]
+        #por boton de eliminar evento registrado
     else:
         #ID DE EVENTOS CREADOS:
         openConnection()
@@ -275,6 +278,16 @@ def mis_actividades():
         sql_command = "SELECT evento_data.id, evento_data.nombre, evento_data.precio, evento_data.path_foto_p, evento_data.fecha, evento_data.hora, categoria.nombre FROM ((evento_data INNER JOIN evento_categoria ON evento_data.id = evento_categoria.id_evento) INNER JOIN categoria ON evento_categoria.id_categoria = categoria.id) WHERE evento_data.id IN %s;"
         cursor.execute(sql_command, (ids, ))
         REGISTRADOS = cursor.fetchall()
+        currentTime = datetime.now()
+        currentTime = (currentTime.year * 10000000000) + (currentTime.month * 100000000) +  (currentTime.daty * 1000000)
+        for row in records:
+            fechaEvento = row[4]
+            fechaEvento = datetime.strptime(fechaEvento,'%Y-%m-%d')
+            fechaEvento = (fechaEvento.year * 10000000000) + (fechaEvento.month * 100000000) +  (fechaEvento.daty * 1000000)
+            if (currentTime - fechaEvento == 15):
+                id_Actividad = row[0]
+                #DELETE por fecha
+                pass
         #datetime para ver si el evento se guarad o no. 
         #recorrer el array y 
         #for que entre a REGISTRADOS, row in regist
@@ -340,8 +353,12 @@ def editar_actividad(idActividad=None):
     img3 = url_for('static',filename="hacer3.jpg")
     img4 = url_for('static',filename="hacer4.jpg")
     if (request.method == "DELETE"):
-        #validar si es comentario o evento el DELETE
-        pass
+        if request.form.get('eliminarActividad') == 'eliminarActividad':
+            #DELETE idActividad
+            pass
+        if request.form.get('eliminarComentario') == 'eliminarComentario':
+            #DELETE idComentario
+            idComentario = request.form["idcomentario"]
     openConnection()
     cursor = conn.cursor()
     id = idActividad
