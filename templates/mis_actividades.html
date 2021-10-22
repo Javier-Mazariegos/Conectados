@@ -40,7 +40,7 @@
                         <p class="categoria">{{row[4]}}</p>
                         <p class="titulo">{{row[1]}}</p>
                         <p class="precio">Q{{row[2]}}</p>
-                        <a href="editar_actividad/{{row[0]}}">Mas informacion...</a>
+                        <a href="editar_actividad/{{row[0]}}">Editar actividad...</a>
                     </div>
                 </div>
                 {% endfor %}
@@ -63,7 +63,7 @@
                         <p class="titulo">{{row[1]}}</p>
                         <p class="categoria">Fecha de la actividad: {{row[4]}}</p>
                         <p class="categoria">Hora de la actividad: {{row[5]}}</p>
-                        <form action="#" method="DELETE">
+                        <form action="#" method="POST">
                             <input type="hidden" name="id" value="{{row[0]}}">
                             <input type="submit" name="eliminar" value="eliminar"class="btn-eliminar">
                         </form>
