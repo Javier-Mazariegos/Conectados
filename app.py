@@ -305,25 +305,62 @@ def mis_actividades():
         sql_command = "SELECT evento_data.id, evento_data.nombre, evento_data.precio, evento_data.path_foto_p, evento_data.fecha, evento_data.hora, categoria.nombre FROM ((evento_data INNER JOIN evento_categoria ON evento_data.id = evento_categoria.id_evento) INNER JOIN categoria ON evento_categoria.id_categoria = categoria.id) WHERE evento_data.id IN %s;"
         cursor.execute(sql_command, (ids, ))
         REGISTRADOS = cursor.fetchall()
+        REGISTRADOS2 = []
         currentTime = datetime.now()
         currentTime = (currentTime.year * 10000000000) + (currentTime.month * 100000000) +  (currentTime.day * 1000000)
         for row in REGISTRADOS:
-            print(row)
             fechaEvento = row[4]
             fechaEvento = datetime.strptime(fechaEvento,'%Y-%m-%d')
             fechaEvento = (fechaEvento.year * 10000000000) + (fechaEvento.month * 100000000) +  (fechaEvento.day * 1000000)
             if (currentTime - fechaEvento == 15):
                 id_Actividad = row[0]
                 #DELETE por fecha
-                pass
-        #datetime para ver si el evento se guarad o no. 
-        #recorrer el array y 
-        #for que entre a REGISTRADOS, row in regist
-        #row[4] obtienes la fecha. y validad que esa fecha no se haya pasado por 30 días.
-        # si esta en rango de fecha aceptable, en otra variable guardas row. REGISTRADOS2.append(row)
+                #DELETE idActividad
+                #delete en usuario_evento_registrado
+                openConnection()
+                cursor = conn.cursor()
+                sql_command = "DELETE FROM public.usuario_evento_registrado WHERE usuario_evento_registrado.id_evento = %s"
+                cursor.execute(sql_command, (id_Actividad, ))
+                conn.commit()
+                cursor.close()
+                conn.close()
+                #delete en usuario_evento_creado
+                openConnection()
+                cursor = conn.cursor()
+                sql_command = "DELETE FROM public.usuario_evento_creado WHERE usuario_evento_creado.id_evento = %s"
+                cursor.execute(sql_command, (id_Actividad, ))
+                conn.commit()
+                cursor.close()
+                conn.close()
+                #delete en evento_comentarios
+                openConnection()
+                cursor = conn.cursor()
+                sql_command = "DELETE FROM public.evento_comentarios WHERE evento_comentarios.id_evento = %s"
+                cursor.execute(sql_command, (id_Actividad, ))
+                conn.commit()
+                cursor.close()
+                conn.close()
+                #delete en evento_categoria
+                openConnection()
+                cursor = conn.cursor()
+                sql_command = "DELETE FROM public.evento_categoria WHERE evento_categoria.id_evento = %s"
+                cursor.execute(sql_command, (id_Actividad, ))
+                conn.commit()
+                cursor.close()
+                conn.close()
+                #delete en evento_data
+                openConnection()
+                cursor = conn.cursor()
+                sql_command = "DELETE FROM public.evento_data WHERE evento_data.id = %s"
+                cursor.execute(sql_command, (id_Actividad, ))
+                conn.commit()
+                cursor.close()
+                conn.close()
+            else:
+                REGISTRADOS2.append(row)
         cursor.close()
         conn.close()
-    return template.render(css = css,logo=logo,creados=CREADOS, registrados = REGISTRADOS)
+    return template.render(css = css,logo=logo,creados=CREADOS, registrados = REGISTRADOS2)
 
 @app.route('/informacion_actividad/<idActividad>',methods=["GET","POST"], endpoint="informacion_actividad")#tengo que recibir el id del evento seleccionado. 
 def informacion_actividad(idActividad=None):
@@ -383,7 +420,46 @@ def editar_actividad(idActividad=None):
     if (request.method == "DELETE"):
         if request.form.get('eliminarActividad') == 'eliminarActividad':
             #DELETE idActividad
-            pass
+            #delete en usuario_evento_registrado
+            openConnection()
+            cursor = conn.cursor()
+            sql_command = "DELETE FROM public.usuario_evento_registrado WHERE usuario_evento_registrado.id_evento = %s"
+            cursor.execute(sql_command, (idActividad, ))
+            conn.commit()
+            cursor.close()
+            conn.close()
+            #delete en usuario_evento_creado
+            openConnection()
+            cursor = conn.cursor()
+            sql_command = "DELETE FROM public.usuario_evento_creado WHERE usuario_evento_creado.id_evento = %s"
+            cursor.execute(sql_command, (idActividad, ))
+            conn.commit()
+            cursor.close()
+            conn.close()
+            #delete en evento_comentarios
+            openConnection()
+            cursor = conn.cursor()
+            sql_command = "DELETE FROM public.evento_comentarios WHERE evento_comentarios.id_evento = %s"
+            cursor.execute(sql_command, (idActividad, ))
+            conn.commit()
+            cursor.close()
+            conn.close()
+            #delete en evento_categoria
+            openConnection()
+            cursor = conn.cursor()
+            sql_command = "DELETE FROM public.evento_categoria WHERE evento_categoria.id_evento = %s"
+            cursor.execute(sql_command, (idActividad, ))
+            conn.commit()
+            cursor.close()
+            conn.close()
+            #delete en evento_data
+            openConnection()
+            cursor = conn.cursor()
+            sql_command = "DELETE FROM public.evento_data WHERE evento_data.id = %s"
+            cursor.execute(sql_command, (idActividad, ))
+            conn.commit()
+            cursor.close()
+            conn.close()
         if request.form.get('eliminarComentario') == 'eliminarComentario':
             #DELETE idComentario
             idComentario = request.form["idcomentario"]
