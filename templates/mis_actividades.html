@@ -33,102 +33,19 @@
             </div>
             <div class="contenedor-cards">
                 <!--FOR DE MOSTRAR TODOS LOS EVENTOS CREADOS DEL USUARIO-->
+                {% for row in creados %}
                 <div class="card">
-                    <img src="{{img1}}">
+                    <img src="{{row[3]}}">
                     <div class="info">
-                        <p class="categoria">concierto</p>
-                        <p class="titulo">Actividad 1</p>
-                        <p class="precio">Q1,200 por persona</p>
+                        <p class="categoria">{{row[4]}}</p>
+                        <p class="titulo">{{row[1]}}</p>
+                        <p class="precio">Q{{row[2]}}</p>
+                        <a href="editar_actividad/{{row[0]}}">Mas informacion...</a>
                     </div>
                 </div>
-                <div class="card">
-                    <img src="{{img2}}">
-                    <div class="info">
-                        <p class="categoria">streaming</p>
-                        <p class="titulo">Actividad 2</p>
-                        <p class="precio">Q300 por persona</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="{{img3}}">
-                    <div class="info">
-                        <p class="categoria">Cafe</p>
-                        <p class="titulo">Actividad 3</p>
-                        <p class="precio">Q400 por persona</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="{{img4}}">
-                    <div class="info">
-                        <p class="categoria">Viajes</p>
-                        <p class="titulo">Actividad 4</p>
-                        <p class="precio">Q500 por persona</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="{{img1}}">
-                    <div class="info">
-                        <p class="categoria">Carreras</p>
-                        <p class="titulo">Actividad 5</p>
-                        <p class="precio">Q1,200 por persona</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="{{img2}}">
-                    <div class="info">
-                        <p class="categoria">Realidad Virtual</p>
-                        <p class="titulo">Actividad 6</p>
-                        <p class="precio">Q300 por persona</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="{{img3}}">
-                    <div class="info">
-                        <p class="categoria">Programacion</p>
-                        <p class="titulo">Actividad 7</p>
-                        <p class="precio">Q400 por persona</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="{{img4}}">
-                    <div class="info">
-                        <p class="categoria">Tecnologia</p>
-                        <p class="titulo">Actividad 8</p>
-                        <p class="precio">Q500 por persona</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="{{img1}}">
-                    <div class="info">
-                        <p class="categoria">Videojuegos</p>
-                        <p class="titulo">Actividad 9</p>
-                        <p class="precio">Q1,200 por persona</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="{{img2}}">
-                    <div class="info">
-                        <p class="categoria">Coina</p>
-                        <p class="titulo">Actividad 10</p>
-                        <p class="precio">Q300 por persona</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="{{img3}}">
-                    <div class="info">
-                        <p class="categoria">Museo</p>
-                        <p class="titulo">Actividad 11</p>
-                        <p class="precio">Q400 por persona</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="{{img4}}">
-                    <div class="info">
-                        <p class="categoria">Concierto</p>
-                        <p class="titulo">Actividad 12</p>
-                        <p class="precio">Q500 por persona</p>
-                    </div>
-                </div>
+                {% endfor %}
+                
+                
             </div><!--se mantiene este div-->
         </section>
 
@@ -137,36 +54,23 @@
             <h2>Actividades futuras</h2>
             <div class="contenedor-cards">
                 <!--FOR DEL DIC CON EVENTOS REGISTRADOS-->
+
+                {% for row in registrados %}
                 <div class="card_futuras">
-                    <img src="{{img1}}">
+                    <img src="{{row[3]}}">
                     <div class="info">
-                        <p class="categoria">Fecha de la actividad: 18/10/2021</p>
-                        <p class="titulo">Actividad 1</p>
-                        <form action="#">
+                        <p class="categoria">{{row[6]}}</p>
+                        <p class="titulo">{{row[1]}}</p>
+                        <p class="categoria">Fecha de la actividad: {{row[4]}}</p>
+                        <p class="categoria">Hora de la actividad: {{row[5]}}</p>
+                        <form action="#" method="DELETE">
+                            <input type="hidden" name="id" value="{{row[0]}}">
                             <input type="submit" class="btn-eliminar">
                         </form>
                     </div>
                 </div>
-                <div class="card_futuras">
-                    <img src="{{img2}}">
-                    <div class="info">
-                        <p class="categoria">Fecha de la actividad: 19/10/2021</p>
-                        <p class="titulo">Actividad 2</p>
-                        <form action="#">
-                            <input type="submit" class="btn-eliminar">
-                        </form>
-                    </div>
-                </div>
-                <div class="card_futuras">
-                    <img src="{{img3}}">
-                    <div class="info">
-                        <p class="categoria">Fecha de la actividad: 20/10/2021</p>
-                        <p class="titulo">Actividad 3</p>
-                        <form action="#">
-                            <input type="submit" class="btn-eliminar">
-                        </form>
-                    </div>
-                </div>
+                {% endfor %}
+
             </div>
         </section>
     </main>
