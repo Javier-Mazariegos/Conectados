@@ -45,9 +45,9 @@
                         <label for="categoria">Categoria de la actividad</label>
                         <select class="categoria" name="categoria" id="categoria">
                             <option selected="">Select category</option>
-                            <option value="1">Categoria 1</option>
-                            <option value="2">Categoria 2</option>
-                            <option value="3">Categoria 3</option>
+                            {% for row in categorias %}
+                            <option value="{{row[0]}}">{{row[1]}}</option>
+                            {% endfor %}
                         </select>
                     </div>
 
