@@ -29,8 +29,6 @@ def allowed_file(filename):
 
 @app.route('/',methods=["GET","POST"])
 def index():
-    images = []
-    position =0
     records = ""
     template = env.get_template('index.html')
     logoConectados = url_for('static',filename="conectados2.png")
@@ -44,6 +42,7 @@ def index():
     conn.close()
     if (request.method == "POST"):
         cate = request.form.get("busqueda")
+        cate = int(cate)
         if cate == 0:
             openConnection()
             cursor = conn.cursor()
@@ -52,9 +51,6 @@ def index():
             records = cursor.fetchall()
             cursor.close()
             conn.close()
-            for row in records:
-                print(row[3])
-                row[3].append(url_for('static',filename=row[3]))
         else:
             openConnection()
             cursor = conn.cursor()
@@ -64,9 +60,6 @@ def index():
             records = cursor.fetchall()
             cursor.close()
             conn.close()
-            for row in records:
-                print(row[3])
-                row[3].append(url_for('static',filename=row[3]))
     else:
         openConnection()
         cursor = conn.cursor()
@@ -75,11 +68,8 @@ def index():
         records = cursor.fetchall()
         cursor.close()
         conn.close()
-    for row in records:
-        print(row[3])
-        row[3].append(url_for('static',filename=row[3]))
     if "sesion" in session:
-        return template.render(css = css,logoConectados=logoConectados,records = records, categorias = categorias, imagenes = images)
+        return template.render(css = css,logoConectados=logoConectados,records = records, categorias = categorias)
     else:
         return redirect("/inicioSesion")
 

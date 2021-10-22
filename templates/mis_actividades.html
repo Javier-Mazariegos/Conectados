@@ -35,7 +35,7 @@
                 <!--FOR DE MOSTRAR TODOS LOS EVENTOS CREADOS DEL USUARIO-->
                 {% for row in creados %}
                 <div class="card">
-                    <img src="/images/{{row[3]}}">
+                    <img src="/static/{{row[3]}}">
                     <div class="info">
                         <p class="categoria">{{row[4]}}</p>
                         <p class="titulo">{{row[1]}}</p>
@@ -57,7 +57,7 @@
 
                 {% for row in registrados %}
                 <div class="card_futuras">
-                    <img src="/images/{{row[3]}}">
+                    <img src="/static/{{row[3]}}">
                     <div class="info">
                         <p class="categoria">{{row[6]}}</p>
                         <p class="titulo">{{row[1]}}</p>
