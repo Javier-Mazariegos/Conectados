@@ -54,8 +54,7 @@ def index():
             conn.close()
             for row in records:
                 print(row[3])
-                images[position] = url_for('static',filename=row[3])
-                position += 1
+                images.append = url_for('static',filename=row[3])
         else:
             openConnection()
             cursor = conn.cursor()
@@ -67,8 +66,7 @@ def index():
             conn.close()
             for row in records:
                 print(row[3])
-                images[position] = url_for('static',filename=row[3])
-                position += 1
+                images.append = url_for('static',filename=row[3])
     else:
         openConnection()
         cursor = conn.cursor()
@@ -79,8 +77,7 @@ def index():
         conn.close()
     for row in records:
         print(row[3])
-        images[position] = url_for('static',filename=row[3])
-        position += 1
+        images.append = url_for('static',filename=row[3])
     if "sesion" in session:
         return template.render(css = css,logoConectados=logoConectados,records = records, categorias = categorias, imagenes = images)
     else:
