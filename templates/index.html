@@ -23,12 +23,12 @@
             <form action="#" method="POST"> 
                 <!--Cambiar el nombre de las categorias-->
                 <select type="text" name="busqueda" class="busqueda" placeholder="Buscar etiqueta de la actividad">
-                    <option selected="">Escoger una categoria...</option>
-                    <option value="1">Categoria 1</option>
-                    <option value="2">Categoria 2</option>
-                    <option value="3">Categoria 3</option>
-                    <option value="4">Categoria 4</option>
-                    <option value="4">Todas las categorias</option>
+                    
+                    <option value="0" selected="">Escoger una categoria...</option>
+                    {% for row in categorias %}
+                    <option value="{{row[0]}}">{{row[1]}}</option>
+                    {% endfor %}
+                    <option value="0">Todas las categorias</option>
                 </select>
                 <!---->
                 <input type="submit" value="buscar">
