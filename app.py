@@ -33,6 +33,13 @@ def index():
     template = env.get_template('index.html')
     logoConectados = url_for('static',filename="conectados2.png")
     css = url_for('static',filename="styles.css")
+    openConnection()
+    cursor = conn.cursor()
+    sql_command = "SELECT * FROM public.categoria"
+    cursor.execute(sql_command, )
+    categorias = cursor.fetchall()
+    cursor.close()
+    conn.close()
     if (request.method == "POST"):
         cate = request.form.get("busqueda")
         if cate == 0:
@@ -61,7 +68,7 @@ def index():
         cursor.close()
         conn.close()
     if "sesion" in session:
-        return template.render(css = css,logoConectados=logoConectados,records = records)
+        return template.render(css = css,logoConectados=logoConectados,records = records, categorias = categorias)
     else:
         return redirect("/inicioSesion")
 
