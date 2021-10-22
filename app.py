@@ -224,7 +224,7 @@ def cuenta():
         cursor = conn.cursor()
         if "sesion" in session:
             id = session["sesion"]
-            sql_command = "SELECT correo, nombre_usuario, pais, path_foto FROM public.user_data WHERE  public.user_data.id = %s;"
+            sql_command = "SELECT correo, nombre_usuario, pais FROM public.user_data WHERE  public.user_data.id = %s;"
             cursor.execute(sql_command, (id, ))
             records = cursor.fetchall()
             cursor.close()
@@ -243,7 +243,15 @@ def mis_actividades():
     if (request.method == "DELETE"):
         if request.form.get('eliminar') == 'eliminar':
             idActividad = request.form["id"]
-        #por boton de eliminar evento registrado
+            #DELETE por boton de eliminar evento registrado
+            openConnection()
+            cursor = conn.cursor()
+            sql_command = "DELETE FROM public.usuario_evento_registrado WHERE usuario_evento_registrado.id_evento = %s"
+            cursor.execute(sql_command, (idActividad, ))
+            conn.commit()
+            cursor.close()
+            conn.close()
+        
     else:
         #ID DE EVENTOS CREADOS:
         openConnection()
@@ -367,6 +375,13 @@ def editar_actividad(idActividad=None):
         if request.form.get('eliminarComentario') == 'eliminarComentario':
             #DELETE idComentario
             idComentario = request.form["idcomentario"]
+            openConnection()
+            cursor = conn.cursor()
+            sql_command = "DELETE FROM public.evento_comentarios WHERE evento_comentario.id = %s"
+            cursor.execute(sql_command, (idComentario, ))
+            conn.commit()
+            cursor.close()
+            conn.close()
     openConnection()
     cursor = conn.cursor()
     id = idActividad
