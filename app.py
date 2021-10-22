@@ -14,7 +14,7 @@ def openConnection():# Set up a connection to the postgres server.
                             user="postgres",
                             password="CharleiAlvSql")
 
-UPLOAD_FOLDER = os.getcwd() + '/images'
+UPLOAD_FOLDER = os.getcwd() + '/static'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 
 File_loader = FileSystemLoader("templates")
@@ -52,6 +52,10 @@ def index():
             records = cursor.fetchall()
             cursor.close()
             conn.close()
+            for row in records:
+                print(row[3])
+                images[position] = url_for('static',filename=row[3])
+                position += 1
         else:
             openConnection()
             cursor = conn.cursor()
@@ -61,6 +65,10 @@ def index():
             records = cursor.fetchall()
             cursor.close()
             conn.close()
+            for row in records:
+                print(row[3])
+                images[position] = url_for('static',filename=row[3])
+                position += 1
     else:
         openConnection()
         cursor = conn.cursor()
