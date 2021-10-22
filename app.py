@@ -249,17 +249,16 @@ def mis_actividades():
     CREADOS = ""
     REGISTRADOS = ""
     if (request.method == "DELETE"):
-        if request.form.get('eliminar') == 'eliminar':
-            idActividad = request.form["id"]
-            #DELETE por boton de eliminar evento registrado
-            openConnection()
-            cursor = conn.cursor()
-            sql_command = "DELETE FROM public.usuario_evento_registrado WHERE usuario_evento_registrado.id_evento = %s"
-            cursor.execute(sql_command, (idActividad, ))
-            conn.commit()
-            cursor.close()
-            conn.close()
-        
+        idActividad = request.form["id"]
+        print(f"EL ID DEL EVENTO A BORRAR ES: {idActividad}")
+        #DELETE por boton de eliminar evento registrado
+        openConnection()
+        cursor = conn.cursor()
+        sql_command = "DELETE FROM public.usuario_evento_registrado WHERE usuario_evento_registrado.id_evento = %s"
+        cursor.execute(sql_command, (idActividad, ))
+        conn.commit()
+        cursor.close()
+        conn.close()   
     else:
         #ID DE EVENTOS CREADOS:
         openConnection()
@@ -374,13 +373,14 @@ def informacion_actividad(idActividad=None):
             conn.commit()
             cursor.close()
             conn.close()
-            return redirect("mis_actividades")
+            return redirect("/mis_actividades")
         if request.form.get('Comentar') == 'Comentar':
             openConnection()
             cursor = conn.cursor()
             id_evento = idActividad
             id = session["sesion"]
             comentario = request.form["comentario"]
+            print(f"comentario: {comentario}")
             sql_command = "INSERT INTO public.evento_comentarios(id_evento, id_user, comentario)VALUES (%s, %s, %s);"
             cursor.execute(sql_command, (id_evento, id, comentario, ))
             conn.commit()
@@ -397,9 +397,11 @@ def informacion_actividad(idActividad=None):
     openConnection()
     cursor = conn.cursor()
     id = idActividad
+    print(id)
     sql_command = "SELECT user_data.nombre_usuario, evento_comentarios.comentario FROM (user_data INNER JOIN evento_comentarios ON user_data.id = evento_comentarios.id_user) where evento_comentarios.id_evento = %s"
     cursor.execute(sql_command, (id, ))
     comentarios = cursor.fetchall()
+    print(comentarios)
     cursor.close()
     conn.close()
     return template.render(css = css, logo = logo,informacion = informacion, comentarios = comentarios)
