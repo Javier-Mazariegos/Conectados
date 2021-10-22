@@ -301,7 +301,7 @@ def informacion_actividad(idActividad=None):
             cursor = conn.cursor()
             id_evento = idActividad
             id = session["sesion"]
-            #comentario = 
+            comentario = request.form["comentario"]
             sql_command = "INSERT INTO public.evento_comentarios(id_evento, id_user, comentario)VALUES (%s, %s, %s);"
             cursor.execute(sql_command, (id_evento, id, comentario, ))
             conn.commit()
@@ -325,8 +325,8 @@ def informacion_actividad(idActividad=None):
     conn.close()
     return template.render(css = css, logo = logo,informacion = informacion, comentarios = comentarios)
 
-@app.route('/editar_actividad',methods=["GET","POST"], endpoint="editar_actividad") #idActividad
-def editar_actividad():
+@app.route('/editar_actividad/<idActividad>',methods=["GET","POST"], endpoint="editar_actividad") #idActividad
+def editar_actividad(idActividad=None):
     css = url_for('static',filename="editar_actividad.css")
     template = env.get_template('editar_actividad.html')
     logo = url_for('static',filename="conectados.png")
@@ -334,7 +334,7 @@ def editar_actividad():
     img2 = url_for('static',filename="hacer2.jpg")
     img3 = url_for('static',filename="hacer3.jpg")
     img4 = url_for('static',filename="hacer4.jpg")
-    if (request.method == "POST"):
+    if (request.method == "DELETE"):
         pass
     openConnection()
     cursor = conn.cursor()
