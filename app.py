@@ -27,7 +27,7 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-@app.route('/',methods=["GET","POST"], endpoint="index")
+@app.route('/',methods=["GET","POST"])
 def index():
     images = []
     position =0
@@ -70,7 +70,8 @@ def index():
         cursor.close()
         conn.close()
     for row in records:
-        images[position] = url_for("images",filename=row[4])
+        print(row[3])
+        images[position] = url_for('static',filename=row[3])
         position += 1
     if "sesion" in session:
         return template.render(css = css,logoConectados=logoConectados,records = records, categorias = categorias, imagenes = images)
