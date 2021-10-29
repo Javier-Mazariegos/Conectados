@@ -10,6 +10,11 @@
 </head>
 
 <body class="bg-light">
+	{% if mensaje != "" %}
+        <script>
+            alert("{{mensaje}}");
+        </script>
+    {% endif %}
     <nav>
         <input type="checkbox" id= "check">
         <label for="check" class="checkbtn">

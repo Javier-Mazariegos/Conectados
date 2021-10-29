@@ -12,6 +12,11 @@
     <link rel="stylesheet" href="{{css}}">
 </head>
 <body>
+    {% if mensaje != "" %}
+        <script>
+            alert("{{mensaje}}");
+        </script>
+    {% endif %}
     <!--Navegacion-->
     <nav>
         <input type="checkbox" id= "check">
@@ -65,25 +70,9 @@
                 <div class="contenedor-imagenes">
                     <div class="profile-pic-div1">
                         <img id="photo1">
-                        <input type=file name=file1 id="file1">
+                        <input type=file name=file1 id="file1" required>
                         <label for="file1" name="file1" id="uploadbtn1">Foto de portada de Actividad:</label>
                     </div>
-                    <div class="profile-pic-div2">
-                        <img id="photo2">
-                        <input type=file name=file2 id="file2">
-                        <label for="file2" name="file2" id="uploadbtn2">Foto 2 de Actividad:</label>
-                    </div>
-                    <div class="profile-pic-div3">
-                        <img id="photo3">
-                        <input type=file name=file3 id="file3">
-                        <label for="file3" name="file3" id="uploadbtn3">Foto 3 de Actividad:</label>
-                    </div>
-                    <div class="profile-pic-div4">
-                        <img id="photo4">
-                        <input type=file name=file4 id="file4">
-                        <label for="file4" name="file4" id="uploadbtn4">Foto 4 de Actividad:</label>
-                    </div>
-                </div>
 
                     <input type="submit" value="Enviar" id="enviar">
                  </div>

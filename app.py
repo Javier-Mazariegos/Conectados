@@ -91,7 +91,7 @@ def regristro():
         id_validador = 0
         if 'file' not in request.files:
             print("No se seleccionó ningun archivo 1")
-            return template.render(css=css,normalizacioncss=normalizacioncss,logo=logo,scriptregistro=scriptregistro,mensaje="No seleccionó ninguna imagen")
+            return template.render(css=css,normalizacioncss=normalizacioncss,logo=logo,scriptregistro=scriptregistro,mensaje="")
         file = request.files['file']
         if file.filename == '':
             print("No se seleccionó ningun archivo 2")
@@ -149,11 +149,14 @@ def inicioSesion():
             sql_command = "SELECT id FROM public.user_data WHERE  public.user_data.correo = %s and public.user_data.contrasena = %s;"
             cursor.execute(sql_command, (email, clave))
             records = cursor.fetchall()
-            for row in records:
-                session['sesion'] = row[0]
-            cursor.close()
-            conn.close()
-            return redirect("/")
+            if records == []:
+                return template.render(css=css,normalizacioncss=normalizacioncss,logo=logo,mensaje="Correo o contraseña erronea")
+            else:
+                for row in records:
+                    session['sesion'] = row[0]
+                cursor.close()
+                conn.close()
+                return redirect("/")
     return template.render(css=css,normalizacioncss=normalizacioncss,logo=logo,mensaje="")
 
 @app.route('/nueva_actividad',methods=["GET","POST"], endpoint="nueva_actividad")
@@ -183,11 +186,9 @@ def nueva_actividad():
             hora = str(fecha_hora.hour) + ":" + str(fecha_hora.minute)
         precio = request.form["precio"]
         if 'file1' not in request.files:
-            print("No se seleccionó ningun archivo 1")
             return template.render(css=css,normalizacioncss=normalizacioncss,logo=logo,scriptNuevaActividad=scriptNuevaActividad, categorias = categorias)
         file = request.files['file1']
         if file.filename == '':
-            print("No se seleccionó ningun archivo 2")
             return template.render(css=css,normalizacioncss=normalizacioncss,logo=logo,scriptNuevaActividad=scriptNuevaActividad,categorias = categorias)
         if file and allowed_file(file.filename):
             print("Archivo seleccionado")
@@ -504,6 +505,7 @@ def editar_actividad(idActividad=None):
             conn.commit()
             cursor.close()
             conn.close()
+            mensaje="Comentario eliminado"
     openConnection()
     cursor = conn.cursor()
     id = idActividad
@@ -521,7 +523,7 @@ def editar_actividad(idActividad=None):
     cursor.close()
     conn.close()
     
-    return template.render(css = css, logo = logo,informacion = informacion, comentarios = comentarios)
+    return template.render(css = css, logo = logo,informacion = informacion, comentarios = comentarios, mensaje=mensaje)
 
 
 

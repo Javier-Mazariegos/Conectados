@@ -10,7 +10,12 @@
     <link rel="preload" href="{{css}}" as="style">
     <link rel="stylesheet" href="{{css}}">
 </head>
-<body>
+<body>    
+    {% if mensaje != "" %}
+        <script>
+            alert("{{mensaje}}");
+        </script>
+    {% endif %}
     <header id="header">
         <div class="contenedorLogo">
             <img class="logo" src="{{logo}}" alt="logo">

@@ -7,6 +7,11 @@
     <link rel="stylesheet" href="{{css}}">
 </head>
 <body>
+    {% if mensaje != "" %}
+        <script>
+            alert("{{mensaje}}");
+        </script>
+    {% endif %}
     <div class="hero">
         <header class="header contenedor">
             <div class="logo">
