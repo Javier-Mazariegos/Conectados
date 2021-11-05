@@ -9,10 +9,11 @@ import psycopg2
 conn = ""
 def openConnection():# Set up a connection to the postgres server.
     global conn
-    conn = psycopg2.connect(host="localhost",
-                            database="demoConectados",
+    conn = psycopg2.connect(host="ec2-35-170-202-150.compute-1.amazonaws.com",
                             user="postgres",
-                            password="CharleiAlvSql")
+                            port=5432,
+                            database="conectadosbase",
+                            password="AdminCM21")
 
 UPLOAD_FOLDER = os.getcwd() + '/static'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
